@@ -142,7 +142,8 @@ onAuthStateChanged(auth, async (user) => {
   role = await getUserRole(user);
   setFormEnabled(['Owner','Admin','Editor'].includes(role));
   if (unsub) unsub();
-  unsub = onSnapshot(query(collection(db, 'banners'), orderBy('order'), orderBy('updatedAt', 'desc')), (snap) => {
+  // Mantemos apenas a ordenação por 'order' para não exigir índice composto
+  unsub = onSnapshot(query(collection(db, 'banners'), orderBy('order')), (snap) => {
     renderList(snap.docs);
   });
 });
