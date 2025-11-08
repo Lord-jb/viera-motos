@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Se estiver logado, vai direto para o dashboard
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      window.location.replace('dashboard.html');
+      window.location.replace('admin.html');
     }
   });
 
