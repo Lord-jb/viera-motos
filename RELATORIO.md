@@ -125,3 +125,36 @@ Entregas:
 
 Validações:
 - Logs aparecem em tempo real na página de auditoria e registram o email/uid do autor quando autenticado.
+
+# RELATÓRIO TÉCNICO – SEO Dinâmico
+
+Entregas:
+- `assets/js/seo.js`: lê `settings/general` via Firestore (compat) e atualiza em tempo real as metatags da página:
+  - `<title>`, `<meta name="description">`, `og:title`, `og:description`.
+  - Cria as metatags caso não existam.
+- Inclusões nos HTML públicos para refletir automaticamente as edições vindas do admin:
+  - `index.html`, `modelo.html`, `test-drive.html`, `consulta.html`: adicionada referência a `assets/js/seo.js` (após `firebase-init.js`).
+  - `financiamento.html`, `servicos.html`, `sobre.html`: adicionados scripts Firebase compat + `firebase-init.js` e `seo.js` para habilitar a atualização dinâmica.
+
+Validações:
+- Alterar `title`/`description` em `admin/settings.html` atualiza as metatags nas páginas do site assim que recarregadas; se manter a página aberta, `onSnapshot` atualiza dinamicamente.
+
+---
+
+# Checklist Final
+
+- [x] Rotas funcionais (público e admin)
+  - Público: `index.html`, `modelo.html`, `test-drive.html`, `financiamento.html`, `servicos.html`, `sobre.html`, `consulta.html`.
+  - Admin: `login.html`, `dashboard.html`, `catalog.html`, `banners.html`, `forms.html` (leads), `settings.html`, `audit.html`, `admin.html` (clássico).
+- [x] Papéis e permissões testados
+  - Roles em `roles/{uid}`: Owner, Admin, Editor, Viewer.
+  - Guardas aplicados e bloqueios de UI conforme papel.
+- [x] CRUDs sincronizando com Firestore
+  - Catálogo (`models`) com onSnapshot, busca/filtros/paginação e múltiplas imagens.
+  - Banners (`banners`) com preview e ordenação.
+  - Leads (`testRides`/`orderQueries`) em tempo real e export CSV.
+  - Settings (`settings/general`) com cores, contatos e redes.
+  - Auditoria (`audit`) de ações-chave.
+- [x] SEO e leads validados
+  - SEO dinâmico (title/description e OG) reflete `settings/general`.
+  - Formulário de test-drive envia via `addLead()` (fallback compatível) e aparece no admin.
