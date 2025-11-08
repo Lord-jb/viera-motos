@@ -1,5 +1,5 @@
-// Admin unificado – um único entrypoint para o painel
-// Mantém login + guarda + montagem de todas as views no admin.html
+﻿// Admin unificado â€“ um Ãºnico entrypoint para o painel
+// MantÃ©m login + guarda + montagem de todas as views no admin.html
 
 import { auth } from './js/modules/firebase.js';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
@@ -16,7 +16,7 @@ function show(el, display = 'block') { if (el) el.style.display = display; }
 function hide(el) { if (el) el.style.display = 'none'; }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const loginSection = document.getElementById('login-section');
+  const loginSection = document.getElementById('login-screen');
   const adminPanel = document.getElementById('admin-panel');
   const emailEl = document.getElementById('user-email');
   const form = document.getElementById('login-form');
@@ -68,23 +68,24 @@ document.addEventListener('DOMContentLoaded', () => {
       showLink('a[data-view="banners"]', isEditorOrAbove);
       showLink('a[data-view="settings"]', r==='owner'||r==='admin');
       showLink('a[data-view="audit"]', r==='owner'||r==='admin');
-      showLink('a[data-view="leads"]', true); // sempre disponível
+      showLink('a[data-view="leads"]', true); // sempre disponÃ­vel
     }
 
-    // Montagem das features (checam presença da view antes de agir)
+    // Montagem das features (checam presenÃ§a da view antes de agir)
     if (isEditorOrAbove) {
       mountCatalogFeature(role);
       mountBannersFeature(role);      // config/offer
-      mountBannersCollection();        // coleção banners
+      mountBannersCollection();        // coleÃ§Ã£o banners
       mountSettingsGeneral();
       mountAuditLogs();
     }
     mountLeadsFeature();
 
-    // View padrão: Modelos para Editor+/Owner, Leads para Viewer
+    // View padrÃ£o: Modelos para Editor+/Owner, Leads para Viewer
     if (router) {
       if (isEditorOrAbove) router.showView('models'); else router.showView('leads');
     }
   });
 });
+
 

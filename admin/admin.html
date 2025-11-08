@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <section id="login-section" class="admin-container" style="display:flex;align-items:center;justify-content:center;">
+    <div id="login-screen" class="admin-container" style="display:flex;align-items:center;justify-content:center;">
       <div class="login-box">
         <h2>Acesso ao Painel</h2>
         <p>Faca login para continuar.</p>
@@ -22,11 +22,11 @@
           <div id="login-error" class="error-message"></div>
         </form>
       </div>
-    </section>
+    </div>
 
     <div id="admin-panel" class="admin-container" style="display:none">
         
-        <aside class="sidebar">
+        <aside id="sidebar" class="sidebar">
             <div class="sidebar-header"><h3>Admin Avelloz <small id="user-email" style="font-weight:400;font-size:12px;opacity:.8"></small></h3></div>
             <nav class="sidebar-nav" id="admin-sidebar-menu">
                 <ul>
@@ -55,7 +55,7 @@
             </nav>
         </aside>
 
-        <main class="main-content">
+        <main id="content-area" class="main-content">
             
             <div class="view" id="models-view" style="display: block;">
                 <h2>Gerenciar Modelos</h2>
@@ -216,6 +216,7 @@
     
     <!-- Logout handler (opcional, caso use o botão sair) -->
     <script type="module" src="admin.js"></script>`r`n</html>
+
 
 
 
