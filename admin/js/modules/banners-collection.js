@@ -2,11 +2,9 @@
 // - Usa Firebase v9 modular
 // - Injeta o CRUD dentro de #banners-view
 
-import { db } from './firebase.js';
 import { getUserRole, Roles } from '../utils/roles.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { auth } from './firebase.js';
-import { collection, doc, setDoc, deleteDoc, onSnapshot, orderBy, query } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 export function mountBannersCollection() {
   const root = document.getElementById('banners-view');
@@ -26,7 +24,6 @@ export function mountBannersCollection() {
   const delBtn = document.getElementById('btn-delete');
 
   let currentId = null;
-  let unsub = null;
   let canEdit = false;
 
   function clearForm() {
@@ -48,11 +45,13 @@ export function mountBannersCollection() {
     else { previewEl.src = ''; previewEl.style.display = 'none'; }
   });
 
-  function renderList(docs) {
+  function renderList(items) {
     if (!listEl) return;
-    if (!docs || docs.length === 0) { listEl.innerHTML = '<p>Nenhum banner cadastrado.</p>'; return; }
-    listEl.innerHTML = docs.map(d => {
-      const b = d.data() || {};
+    if (!items || items.length === 0) { listEl.innerHTML = '<p>Nenhum banner cadastrado.</p>'; return; }
+    // ordenar por order asc
+    items.sort((a,b) => (a.order||0) - (b.order||0));
+    listEl.innerHTML = items.map(d => {
+      const b = d;
       return `
         <div class="model-list-item">
           <div style="display:flex;gap:1rem;align-items:center;">
@@ -70,6 +69,13 @@ export function mountBannersCollection() {
     }).join('');
     listEl.querySelectorAll('.btn-edit').forEach(b => b.addEventListener('click', () => loadForEdit(b.dataset.id)));
     listEl.querySelectorAll('.btn-delete').forEach(b => b.addEventListener('click', () => doDelete(b.dataset.id)));
+  }
+
+  async function refreshList(){
+    try {
+      const items = await window.FS.getCollectionData('banners');
+      renderList(items);
+    } catch(_) { listEl.innerHTML = '<p>Falha ao carregar.</p>'; }
   }
 
   async function loadForEdit(id) {
@@ -101,17 +107,19 @@ export function mountBannersCollection() {
       published: publishedEl.value === 'true',
       updatedAt: new Date().toISOString(),
     };
-    await setDoc(doc(db, 'banners', id), payload, { merge: true });
+    await window.FS.updateDocument('banners', id, payload);
     currentId = id;
     feedbackEl.style.color = 'green';
     feedbackEl.textContent = 'Salvo!';
+    refreshList();
   }
 
   async function doDelete(id) {
     if (!canEdit) return;
     if (!confirm('Excluir este banner?')) return;
-    await deleteDoc(doc(db, 'banners', id));
+    await window.FS.deleteDocument('banners', id);
     if (currentId === id) clearForm();
+    refreshList();
   }
 
   newBtn?.addEventListener('click', () => clearForm());
@@ -122,10 +130,6 @@ export function mountBannersCollection() {
     if (!user) return;
     const role = await getUserRole(user);
     canEdit = (role === Roles.Owner || role === Roles.Admin || role === Roles.Editor);
-    if (unsub) unsub();
-    unsub = onSnapshot(query(collection(db, 'banners'), orderBy('order')), (snap) => {
-      renderList(snap.docs);
-    });
+    refreshList();
   });
 }
-

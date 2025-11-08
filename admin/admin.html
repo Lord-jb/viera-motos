@@ -30,32 +30,25 @@
             <div class="sidebar-header"><h3>Admin Avelloz <small id="user-email" style="font-weight:400;font-size:12px;opacity:.8"></small></h3></div>
             <nav class="sidebar-nav" id="admin-sidebar-menu">
                 <ul>
-                    <li>
-                        <a href="#" data-view="models">
-                            <i class="fas fa-motorcycle"></i> Modelos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-view="alert">
-                            <i class="fas fa-bell"></i> Alerta (Promocao)
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#" data-view="leads">
-                            <i class="fas fa-inbox"></i> Leads Recebidos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="logout-button">
-                            <i class="fas fa-sign-out-alt"></i> Sair
-                        </a>
-                    </li>
+                    <li><a href="#" data-section="dashboard"><i class="fas fa-gauge"></i> Dashboard</a></li>
+                    <li><a href="#" data-section="modelos"><i class="fas fa-motorcycle"></i> Modelos</a></li>
+                    <li><a href="#" data-section="leads"><i class="fas fa-inbox"></i> Leads</a></li>
+                    <li><a href="#" data-section="banners"><i class="fas fa-image"></i> Banners</a></li>
+                    <li><a href="#" data-section="settings"><i class="fas fa-gear"></i> Configurações</a></li>
+                    <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
             </nav>
         </aside>
+        <div id="sidebar-backdrop" class="sidebar-backdrop" aria-hidden="true" style="display:none"></div>
 
         <main id="content-area" class="main-content">
+            <header class="admin-topbar">
+                <button id="sidebar-toggle" class="icon-button" aria-label="Alternar menu"><i class="fas fa-bars"></i></button>
+                <div class="topbar-title">Painel</div>
+                <div class="topbar-actions">
+                    <button id="theme-toggle" class="icon-button" aria-label="Alternar tema"><i class="fas fa-moon"></i></button>
+                </div>
+            </header>
             
             <div class="view" id="models-view" style="display: block;">
                 <h2>Gerenciar Modelos</h2>

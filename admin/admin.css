@@ -34,6 +34,15 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Dark mode variables (opt-in via .theme-dark on <body>) */
+.theme-dark {
+    --color-background-light: #0f141b;
+    --color-text-dark: #e5e7eb;
+    --color-white: #0f1720;
+    --color-surface: #111a25;
+    --color-border: #223142;
+}
+
 /* =======================
    2. SEÇÃO DE LOGIN
    ======================== */
@@ -45,6 +54,9 @@ body {
     justify-content: center;
     padding: 2rem;
 }
+
+/* Admin panel container should stretch layout (not center) */
+#admin-panel.admin-container { align-items: stretch; justify-content: stretch; }
 
 .login-box {
     width: 100%;
@@ -135,15 +147,16 @@ form {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--color-white);
-    background-color: var(--color-primary-orange);
+    background: linear-gradient(135deg, #FF7A1A 0%, var(--color-primary-orange) 100%);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: filter 0.2s;
+    transition: transform 0.08s ease, filter 0.2s;
 }
 .btn-submit:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.05);
 }
+.btn-submit:active { transform: translateY(1px); }
 
 .btn-secondary {
     padding: 0.8rem 1.2rem;
@@ -366,10 +379,18 @@ body {
 
 /* --- Sidebar (Menu Lateral) --- */
 .sidebar {
-    width: 250px;
-    background-color: #2c3e50; /* Um azul escuro/preto para o admin */
-    color: white;
+    width: 260px;
+    background: #1a2634; /* Dark navy for admin area */
+    color: #fff;
     padding: 20px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    box-shadow: 2px 0 16px rgba(0,0,0,.08);
+    transform: translateX(0);
+    transition: transform .25s ease;
+    z-index: 1000;
 }
 
 .sidebar-header h3 {
@@ -414,10 +435,10 @@ body {
 }
 
 .view {
-    background-color: #ffffff;
+    background-color: var(--color-surface, #ffffff);
     padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
 .view h2 {
@@ -519,3 +540,58 @@ body {
 .admin-table tbody tr:last-child td {
     border-bottom: none;
 }
+
+/* =======================
+   7. TOPBAR E MELHORIAS MODERNAS
+   ======================== */
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-surface, #fff);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.topbar-title { font-weight: 700; opacity: .9; }
+.topbar-actions { margin-left: auto; display: flex; gap: 8px; }
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background: linear-gradient(135deg, #FF7A1A 0%, var(--color-primary-orange) 100%);
+    color: #fff;
+    cursor: pointer;
+}
+.icon-button i { pointer-events: none; }
+
+/* Dashboard metric cards */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+.metric-card { background: var(--color-surface, #fff); border: 1px solid var(--color-border); border-radius: 10px; padding: 16px; }
+.metric-label { opacity: .7; font-size: 12px; }
+.metric-value { font-size: 28px; font-weight: 800; }
+
+/* Sidebar overlay for mobile */
+.sidebar-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 900; display: none; }
+.sidebar-open .sidebar-backdrop { display: block; }
+
+@media (max-width: 992px) {
+  .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
+  .sidebar-open .sidebar { transform: translateX(0); }
+  #admin-panel { padding: 0; }
+}
+
+/* Stronger, modern cards override */
+.content-card { background-color: var(--color-surface, #fff); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+.view { background-color: var(--color-surface, #fff); border-radius: 12px; }

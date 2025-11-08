@@ -12,18 +12,22 @@ export function initViewRouter() {
     views.forEach(v => {
       v.style.display = (v.id === `${viewName}-view`) ? 'block' : 'none';
     });
-    // Ativa link
-    const links = menu.querySelectorAll('a[data-view]');
-    links.forEach(a => a.classList.toggle('active-view', a.getAttribute('data-view') === viewName));
+    // Ativa link (suporta data-view e data-section)
+    const links = menu.querySelectorAll('a[data-view], a[data-section]');
+    links.forEach(a => {
+      const attr = a.hasAttribute('data-view') ? 'data-view' : 'data-section';
+      const val = a.getAttribute(attr);
+      a.classList.toggle('active-view', val === viewName);
+    });
   }
 
   menu.addEventListener('click', (e) => {
-    const link = e.target.closest('a[data-view]');
+    const link = e.target.closest('a[data-view], a[data-section]');
     if (!link) return;
     e.preventDefault();
-    showView(link.getAttribute('data-view'));
+    const view = link.getAttribute('data-view') || link.getAttribute('data-section');
+    showView(view);
   });
 
   return { showView };
 }
-
