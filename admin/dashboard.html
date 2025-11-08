@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard • Admin – Viera Motos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Painel Admin (mesmo layout, sem alterar visual) -->
+  <div id="admin-panel" class="admin-container" style="display:flex">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3>Admin Avelloz <small id="user-email" style="font-weight:400;font-size:12px;opacity:.8"></small></h3>
+      </div>
+      <nav class="sidebar-nav" id="admin-sidebar-menu">
+        <ul>
+          <li>
+            <a href="#" data-view="models">
+              <i class="fas fa-motorcycle"></i> Modelos
+            </a>
+          </li>
+          <li>
+            <a href="#" data-view="alert">
+              <i class="fas fa-bell"></i> Alerta (Promoção)
+            </a>
+          </li>
+          <li>
+            <a href="#" data-view="leads">
+              <i class="fas fa-inbox"></i> Leads Recebidos
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout-button">
+              <i class="fas fa-sign-out-alt"></i> Sair
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <!-- View: Dashboard (Resumo) -->
+      <div class="view" id="dashboard-view" style="display: block;">
+        <h2>Resumo</h2>
+        <div class="content-card">
+          <p><strong>Usuário:</strong> <span id="dash-user-name">-</span> • <strong>Papel:</strong> <span id="dash-user-role">-</span></p>
+        </div>
+        <div class="content-card">
+          <h3>Métricas</h3>
+          <div class="metrics-grid" style="display:grid;grid-template-columns:repeat(4, minmax(120px, 1fr));gap:1rem;align-items:stretch;">
+            <div class="metric-box" style="border:1px solid var(--color-border);border-radius:6px;padding:1rem;background:#fff;">
+              <div style="font-weight:700;color:#555;">Banners/Alertas</div>
+              <div id="metric-banners" style="font-size:2.4rem;font-weight:800;">0</div>
+            </div>
+            <div class="metric-box" style="border:1px solid var(--color-border);border-radius:6px;padding:1rem;background:#fff;">
+              <div style="font-weight:700;color:#555;">Modelos</div>
+              <div id="metric-models" style="font-size:2.4rem;font-weight:800;">0</div>
+            </div>
+            <div class="metric-box" style="border:1px solid var(--color-border);border-radius:6px;padding:1rem;background:#fff;">
+              <div style="font-weight:700;color:#555;">Leads</div>
+              <div id="metric-leads" style="font-size:2.4rem;font-weight:800;">0</div>
+            </div>
+            <div class="metric-box" style="border:1px solid var(--color-border);border-radius:6px;padding:1rem;background:#fff;">
+              <div style="font-weight:700;color:#555;">Usuários</div>
+              <div id="metric-users" style="font-size:2.4rem;font-weight:800;">0</div>
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <button id="btn-seed" class="btn-submit">Gerar dados demo</button>
+            <span id="seed-feedback" class="error-message" style="margin-left:1rem;display:inline-block;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- (opcional) Outras views podem ser carregadas nesta página no futuro -->
+      <div class="view" id="models-view" style="display: none;">
+        <h2>Gerenciar Modelos</h2>
+      </div>
+      <div class="view" id="alert-view" style="display: none;">
+        <h2>Gerenciador de Alerta/Oferta (Home)</h2>
+      </div>
+      <div class="view" id="leads-view" style="display: none;">
+        <h2>Leads Recebidos</h2>
+      </div>
+    </main>
+  </div>
+
+  <!-- Ícones (Font Awesome CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Guard de sessão e Logout (ES Modules) -->
+  <script type="module" src="js/auth/guard.js"></script>
+  <script type="module" src="js/auth/logout.js"></script>
+  <!-- Dashboard (ES Modules) -->
+  <script type="module" src="js/seed.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

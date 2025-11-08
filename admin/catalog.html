@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo • Admin – Viera Motos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div id="admin-panel" class="admin-container" style="display:flex">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3>Admin Avelloz <small id="user-email" style="font-weight:400;font-size:12px;opacity:.8"></small></h3>
+      </div>
+      <nav class="sidebar-nav" id="admin-sidebar-menu">
+        <ul>
+          <li><a href="dashboard.html"><i class="fas fa-gauge"></i> Dashboard</a></li>
+          <li><a href="#" class="active-view"><i class="fas fa-motorcycle"></i> Catálogo</a></li>
+          <li><a href="admin.html"><i class="fas fa-tools"></i> Painel Clássico</a></li>
+          <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="view" id="catalog-view" style="display:block;">
+        <h2>Catálogo</h2>
+
+        <div class="content-card" id="catalog-filters">
+          <div class="form-grid" style="grid-template-columns: 2fr 1fr 1fr; align-items: end;">
+            <div class="form-group">
+              <label for="q">Busca (nome/slug)</label>
+              <input type="text" id="q" placeholder="Ex.: AZ160" />
+            </div>
+            <div class="form-group">
+              <label for="q-status">Status</label>
+              <select id="q-status">
+                <option value="">Todos</option>
+                <option value="active">Ativo</option>
+                <option value="inactive">Inativo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <button id="q-apply" class="btn-secondary">Aplicar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-card" id="catalog-form-card">
+          <h3>Novo/Editar Modelo</h3>
+          <form id="catalog-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="c-name">Nome</label>
+                <input id="c-name" required />
+              </div>
+              <div class="form-group">
+                <label for="c-slug">Slug</label>
+                <input id="c-slug" placeholder="ex.: az160-xtreme" required />
+              </div>
+              <div class="form-group">
+                <label for="c-price">Preço</label>
+                <input id="c-price" placeholder="ex.: 12.990,00" />
+              </div>
+              <div class="form-group">
+                <label for="c-status">Status</label>
+                <select id="c-status">
+                  <option value="active">Ativo</option>
+                  <option value="inactive">Inativo</option>
+                </select>
+              </div>
+            </div>
+            <hr>
+            <h4>Imagens (URLs)</h4>
+            <div id="c-images-container"></div>
+            <button type="button" id="btn-add-image" class="btn-secondary" style="margin-top:1rem;">Adicionar imagem</button>
+            <hr>
+            <div class="form-actions">
+              <button type="submit" id="btn-save" class="btn-submit">Salvar</button>
+              <button type="button" id="btn-new" class="btn-secondary">Novo</button>
+              <button type="button" id="btn-delete" class="btn-secondary" style="background:#eee;">Excluir</button>
+              <p id="c-feedback" class="form-feedback"></p>
+            </div>
+          </form>
+        </div>
+
+        <div class="content-card" id="catalog-list-card">
+          <h3>Modelos</h3>
+          <div id="catalog-list"></div>
+          <div style="margin-top:1rem;display:flex;gap:.5rem;align-items:center;">
+            <button id="page-prev" class="btn-secondary">Anterior</button>
+            <button id="page-next" class="btn-secondary">Próximo</button>
+            <span id="page-info" style="font-size:1.2rem;color:#666;">Página 1</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="js/auth/guard.js"></script>
+  <script type="module" src="js/auth/logout.js"></script>
+  <script type="module" src="js/catalog.js"></script>
+</body>
+</html>
+

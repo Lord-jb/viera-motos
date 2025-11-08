@@ -8,12 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>    <section id="login-section" class="admin-container" style="display:flex;align-items:center;justify-content:center;">
+<body>
+    <section id="login-section" class="admin-container" style="display:flex;align-items:center;justify-content:center;">
       <div class="login-box">
         <h2>Acesso ao Painel</h2>
         <p>Faca login para continuar.</p>
@@ -61,12 +59,10 @@
             
             <div class="view" id="models-view" style="display: block;">
                 <h2>Gerenciar Modelos</h2>
-                <p>Aqui fica o gerenciador de modelos...</p>
             </div>
 
             <div class="view" id="alert-view" style="display: none;">
                 <h2>Gerenciador de Alerta/Oferta (Home)</h2>
-                <p>Aqui fica o gerenciador de alerta de promocoes...</p>
             </div>
 
 
@@ -118,18 +114,12 @@
             </main>
     </div>
 
-        <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
-
-    <script defer src="../assets/js/firebase-init.js"></script>
-
-    <script defer src="js/admin-auth-guard.js"></script>
-    <script defer src="js/auth.js"></script>
-    <script defer src="js/leads-inbox.js"></script>
-    <script defer src="js/admin-panel.js"></script>
-    <script defer src="js/admin-enhancements.js"></script> 
+    <!-- Proteção de sessão para páginas do admin -->
+    <script type="module" src="js/auth/guard.js"></script>
+    <!-- ES Modules: App admin modular -->
+    <script type="module" src="js/app.js"></script>
+    <!-- Logout handler (opcional, caso use o botão sair) -->
+    <script type="module" src="js/auth/logout.js"></script>
 
 </body>
 </html>

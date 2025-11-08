@@ -1,0 +1,49 @@
+// Guard de Sessão (ES Modules)
+// - Protege páginas do admin exigindo usuário autenticado
+// - Se não autenticado, redireciona para login.html
+// - Se autenticado, opcionalmente exibe email no header (#user-email)
+
+import { auth } from '../../js/modules/firebase.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
+import { getUserRole, Roles } from '../utils/roles.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      if (!location.pathname.endsWith('/login.html')) window.location.replace('login.html');
+      return;
+    }
+    const el = document.getElementById('user-email');
+    if (el) el.textContent = user.email || '';
+
+    // Papel do usuário
+    const role = await getUserRole(user);
+    window.__ROLE = role;
+
+    // Restringe itens do menu conforme papel
+    const menu = document.getElementById('admin-sidebar-menu');
+    if (menu) {
+      const modelsLink = menu.querySelector('a[data-view="models"]');
+      const alertLink = menu.querySelector('a[data-view="alert"]');
+      const leadsLink = menu.querySelector('a[data-view="leads"]');
+      // Viewer: apenas leads
+      if (role === Roles.Viewer) {
+        if (modelsLink) modelsLink.style.display = 'none';
+        if (alertLink) alertLink.style.display = 'none';
+        if (leadsLink) leadsLink.style.display = '';
+      }
+      // Editor: modelos e alertas; leads também
+      if (role === Roles.Editor) {
+        if (modelsLink) modelsLink.style.display = '';
+        if (alertLink) alertLink.style.display = '';
+        if (leadsLink) leadsLink.style.display = '';
+      }
+      // Admin/Owner: tudo
+      if (role === Roles.Admin || role === Roles.Owner) {
+        if (modelsLink) modelsLink.style.display = '';
+        if (alertLink) alertLink.style.display = '';
+        if (leadsLink) leadsLink.style.display = '';
+      }
+    }
+  });
+});
