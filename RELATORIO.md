@@ -94,3 +94,18 @@ Entregas:
 Validações/Requisitos atendidos:
 - Integração do formulário de test-drive com Firestore via função `addLead()`.
 - Listagem administrativa em tempo real e exportação CSV.
+
+# RELATÓRIO TÉCNICO – Configurações Gerais (Settings)
+
+Entregas:
+- `admin/settings.html`: página para editar configurações gerais, mantendo o layout existente do admin.
+- `admin/js/settings.js`: CRUD do documento único `settings/general` no Firestore com campos:
+  - `title`, `description`
+  - `social { instagram, facebook, youtube, tiktok }`
+  - `contacts { email, phone, address, whatsapp }`
+  - `brand { primary, secondary, dark, light }`
+- Permissões: Owner/Admin/Editor podem editar; Viewer somente leitura (botões/campos desabilitados).
+
+Validações:
+- Carregamento e salvamento com `merge: true`, preservando campos não editados.
+- Cores normalizadas em hex (#RRGGBB).
