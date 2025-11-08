@@ -3,6 +3,7 @@
 
 import { db } from './modules/firebase.js';
 import { doc, setDoc, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+import { logAudit } from './audit.js';
 
 export async function runSeed() {
   // 1) Banner/Alerta (config/offer)
@@ -70,5 +71,5 @@ export async function runSeed() {
     message: 'Condição à vista?',
     createdAt: serverTimestamp(),
   });
+  try { await logAudit({ action: 'seed.run', target: 'demo' }); } catch(e) {}
 }
-

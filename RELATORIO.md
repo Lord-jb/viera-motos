@@ -109,3 +109,19 @@ Entregas:
 Validações:
 - Carregamento e salvamento com `merge: true`, preservando campos não editados.
 - Cores normalizadas em hex (#RRGGBB).
+
+# RELATÓRIO TÉCNICO – Auditoria
+
+Entregas:
+- `admin/js/audit.js`: módulo de auditoria com `logAudit({ action, target })` gravando na coleção `audit`:
+  - Campos: `user { uid, email }`, `action`, `target`, `date (serverTimestamp)`.
+  - Inclui função de montagem da tabela quando presente na página (auto-init em `audit.html`).
+- `admin/audit.html`: página para visualizar logs, ordenados por data (desc), com total.
+- Integrações iniciais:
+  - `admin/js/banners.js`: registra `banner.save` e `banner.delete`.
+  - `admin/js/settings.js`: registra `settings.save`.
+  - `admin/js/seed.js`: registra `seed.run`.
+  - (Observação) Catálogo: pode ser integrado em seguida para `model.save`/`model.delete` após estabilizar o arquivo.
+
+Validações:
+- Logs aparecem em tempo real na página de auditoria e registram o email/uid do autor quando autenticado.

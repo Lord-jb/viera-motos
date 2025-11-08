@@ -5,6 +5,7 @@ import { auth, db } from './modules/firebase.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { getUserRole } from './utils/roles.js';
+import { logAudit } from './audit.js';
 
 const docRef = doc(db, 'settings', 'general');
 
@@ -88,6 +89,7 @@ async function saveSettings() {
   await setDoc(docRef, payload, { merge: true });
   feedback.style.color = 'green';
   feedback.textContent = 'Configurações salvas!';
+  try { await logAudit({ action: 'settings.save', target: 'settings/general' }); } catch(e) {}
 }
 
 // Eventos
@@ -109,4 +111,3 @@ onAuthStateChanged(auth, async (user) => {
   }
   await loadSettings();
 });
-

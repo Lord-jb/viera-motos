@@ -9,6 +9,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { getUserRole } from './utils/roles.js';
+import { logAudit } from './audit.js';
 
 let role = 'Viewer';
 let currentId = null; // doc id em edição
@@ -109,6 +110,7 @@ async function saveBanner() {
     updatedAt: serverTimestamp(),
   };
   await setDoc(doc(db, 'banners', id), payload, { merge: true });
+  logAudit({ action: 'banner.save', target: id });
   currentId = id;
   feedbackEl.style.color = 'green';
   feedbackEl.textContent = 'Salvo com sucesso!';
@@ -118,6 +120,7 @@ async function doDelete(id) {
   if (!(['Owner','Admin'].includes(role))) return;
   if (!confirm('Excluir este banner?')) return;
   await deleteDoc(doc(db, 'banners', id));
+  logAudit({ action: 'banner.delete', target: id });
   if (currentId === id) clearForm();
 }
 
@@ -143,4 +146,3 @@ onAuthStateChanged(auth, async (user) => {
     renderList(snap.docs);
   });
 });
-
