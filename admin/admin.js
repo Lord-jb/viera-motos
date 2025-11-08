@@ -2,7 +2,7 @@
 // MantÃ©m login + guarda + montagem de todas as views no admin.html
 
 import { auth } from './js/modules/firebase.js';
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { getUserRole, Roles } from './js/utils/roles.js';
 import { initViewRouter } from './js/modules/router.js';
 import { mountCatalogFeature } from './js/modules/catalog.js';
@@ -31,10 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
       try {
+        // Garante persistência local da sessão
+        try { await setPersistence(auth, browserLocalPersistence); } catch(_){}
         await signInWithEmailAndPassword(auth, email, password);
       } catch (err) {
         const code = err && err.code ? String(err.code) : 'auth/error';
-        feedback.textContent = 'Falha ao entrar: ' + code;
+        const map = {
+          'auth/invalid-email': 'Email inválido.',
+          'auth/missing-password': 'Informe a senha.',
+          'auth/wrong-password': 'Senha incorreta.',
+          'auth/user-not-found': 'Usuário não encontrado.',
+          'auth/invalid-credential': 'Credenciais inválidas.',
+          'auth/operation-not-allowed': 'Login por email/senha não habilitado no Firebase.',
+          'auth/unauthorized-domain': 'Domínio não autorizado no Firebase Auth.',
+          'auth/network-request-failed': 'Falha de rede. Verifique sua conexão.'
+        };
+        feedback.textContent = map[code] || ('Falha ao entrar: ' + code);
       }
     });
   }
@@ -87,5 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
 
