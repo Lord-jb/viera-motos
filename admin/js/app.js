@@ -8,6 +8,9 @@ import { initViewRouter } from './modules/router.js';
 import { mountBannersFeature } from './modules/banners.js';
 import { mountLeadsFeature } from './modules/leads.js';
 import { mountCatalogFeature } from './modules/catalog.js';
+import { mountBannersCollection } from './modules/banners-collection.js';
+import { mountSettingsGeneral } from './modules/settings-general.js';
+import { mountAuditLogs } from './modules/audit-logs.js';
 
 // DOM pronto
 document.addEventListener('DOMContentLoaded', () => {
@@ -58,7 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const isViewer = r === 'viewer';
     if (isEditorOrAbove) {
       mountCatalogFeature(role);
-      mountBannersFeature(role);
+      mountBannersFeature(role); // alert/offer
+      mountBannersCollection();  // banners (coleção)
+      mountSettingsGeneral();
+      mountAuditLogs();
     }
     // Leads sempre disponível
     mountLeadsFeature();
