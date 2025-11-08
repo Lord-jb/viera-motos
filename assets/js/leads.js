@@ -6,19 +6,32 @@
 
 (function(){
   if (typeof window === 'undefined') return;
-  window.addLead = async function addLead(data) {
-    if (typeof firestore === 'undefined') throw new Error('Firestore indisponível');
-    const payload = {
-      name: data.name || '',
-      phone: data.phone || '',
-      email: data.email || '',
-      model: data.model || data.modelId || null,
-      message: data.message || data.notes || null,
-      createdAt: (firebase && firebase.firestore && firebase.firestore.FieldValue && firebase.firestore.FieldValue.serverTimestamp) ? firebase.firestore.FieldValue.serverTimestamp() : null,
-      userAgent: (typeof navigator !== 'undefined' ? navigator.userAgent : null),
+
+  function getServerTimestamp() {
+    try {
+      return (firebase && firebase.firestore && firebase.firestore.FieldValue && firebase.firestore.FieldValue.serverTimestamp)
+        ? firebase.firestore.FieldValue.serverTimestamp()
+        : null;
+    } catch (_) { return null; }
+  }
+
+  // Compatível com navegadores sem suporte a async/await
+  window.addLead = function addLead(data) {
+    if (typeof firestore === 'undefined') return Promise.reject(new Error('Firestore indisponível'));
+    var d = data || {};
+    var payload = {
+      name: d.name || '',
+      phone: d.phone || '',
+      email: d.email || '',
+      model: d.model || d.modelId || null,
+      message: d.message || d.notes || null,
+      createdAt: getServerTimestamp(),
+      userAgent: (typeof navigator !== 'undefined' ? navigator.userAgent : null)
     };
-    // Armazena em testRides para manter compatibilidade com o admin atual
-    return firestore.collection('testRides').add(payload);
+    try {
+      return firestore.collection('testRides').add(payload);
+    } catch (e) {
+      return Promise.reject(e);
+    }
   };
 })();
-
