@@ -1,7 +1,8 @@
 /*
  * Arquivo: responsive.css
  * Descrição: Contém todas as media queries para 
- * tablets e dispositivos móveis (mobile-first).
+ * tablets e dispositivos móveis.
+ * Versão: Moderna e Reestilizada
  */
 
 /* =======================
@@ -75,11 +76,11 @@
         font-size: 2.2rem;
     }
 
-    /* Vitrine de Modelos */
+    /* Vitrine de Modelos (MELHORADO) */
     .models-grid {
-        /* De 3 colunas para 1 coluna (melhor em tablet) */
-        grid-template-columns: 1fr;
-        max-width: 450px; /* Centraliza o card */
+        /* De 1 coluna larga para 2 colunas */
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%; /* Remove a largura fixa */
         margin: 5rem auto 0 auto;
     }
     
@@ -135,6 +136,7 @@
 
     /* Vitrine de Modelos */
     .models-grid {
+        grid-template-columns: 1fr; /* Volta para 1 coluna no mobile */
         max-width: 100%; /* Ocupa largura total */
         gap: 2rem;
     }
@@ -148,9 +150,6 @@
     }
     .cta-section h2 {
         font-size: 2.4rem;
-    }
-    .cta-section p {
-        font-size: 1.6rem;
     }
 
     /* Rodapé */

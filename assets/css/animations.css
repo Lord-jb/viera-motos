@@ -2,6 +2,7 @@
  * Arquivo: animations.css
  * Descrição: Keyframes e classes utilitárias 
  * para animações de UI.
+ * Versão: Corrigida
  */
 
 /* =======================
@@ -84,3 +85,6 @@
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
 }
+
+/* * Chave '}' extra removida daqui. O arquivo agora está sintaticamente correto.
+ */

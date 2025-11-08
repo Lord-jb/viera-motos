@@ -2,6 +2,7 @@
  * Arquivo: models.css
  * Descrição: Estilos específicos para as páginas de 
  * detalhes de cada modelo de moto.
+ * Versão: Moderna e Reestilizada
  */
 
 
@@ -15,15 +16,14 @@ main.model-page {
 }
 
 /* Sub-navegação 'sticky' (estilo Triumph)
-   Para "Visão Geral", "Ficha Técnica", "Galeria" 
+   MELHORADO: Trocado shadow por border
 */
 .model-nav-sticky {
     position: sticky;
     top: 8rem; /* Abaixo do header principal */
-    background-color: var(--color-white);
+    background-color: var(--color-surface);
     border-bottom: 1px solid var(--color-border);
     z-index: 900;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .model-nav-sticky .container {
@@ -49,6 +49,7 @@ main.model-page {
 .model-nav-links a.active {
     color: var(--color-primary-dark);
     border-bottom-color: var(--color-primary-orange);
+    filter: none; /* Reset global <a> hover */
 }
 
 .model-nav-cta .btn {
@@ -64,7 +65,7 @@ main.model-page {
     grid-template-columns: 1fr 1fr; /* 50% / 50% */
     align-items: center;
     min-height: calc(100vh - 16rem); /* Altura total - header - nav sticky */
-    background-color: var(--color-white);
+    background-color: var(--color-surface);
 }
 
 /* Lado Esquerdo (Imagem) */
@@ -73,9 +74,10 @@ main.model-page {
     align-items: center;
     justify-content: center;
     height: 100%;
-    background-color: #FAFAFA; /* Fundo levemente cinza */
+    background-color: var(--color-background-light); /* Fundo sutil */
     padding: 4rem;
     position: relative; /* Para o seletor de cor */
+    overflow: hidden;
 }
 
 .model-hero-image img {
@@ -85,11 +87,13 @@ main.model-page {
     /* Imagens de cores diferentes ficarão aqui, sobrepostas */
     position: absolute;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: scale(0.95);
 }
 .model-hero-image img.active {
     opacity: 1;
     position: relative; /* Imagem ativa toma o espaço */
+    transform: scale(1);
 }
 
 /* Lado Direito (Info) */
@@ -127,7 +131,7 @@ main.model-page {
     color: var(--color-primary-dark);
 }
 
-/* Seletor de Cores */
+/* Seletor de Cores (MELHORADO) */
 .model-color-selector {
     margin-bottom: 4rem;
 }
@@ -140,33 +144,40 @@ main.model-page {
 .model-color-swatches {
     display: flex;
     gap: 1.5rem;
+    align-items: center;
 }
 .color-swatch {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     cursor: pointer;
     border: 3px solid var(--color-border);
     transition: var(--transition-fast);
     position: relative;
+    box-shadow: var(--shadow-sm);
 }
 .color-swatch:hover {
     border-color: var(--color-text-light);
+    transform: scale(1.1);
 }
 .color-swatch.active {
     border-color: var(--color-primary-orange);
-    transform: scale(1.1);
+    transform: scale(1.15); /* Destaque maior */
+    box-shadow: var(--shadow-md);
 }
+/* Cores (mantidas do original) */
 .color-swatch[data-color="blue"] { background-color: #0D1B2A; }
 .color-swatch[data-color="orange"] { background-color: #FF6F00; }
 .color-swatch[data-color="black"] { background-color: #222; }
 .color-swatch[data-color="white"] { background-color: #FFF; }
+/* TODO: Adicionar mais cores se necessário */
 
 
 /* Botões de Ação */
 .action-buttons {
     display: flex;
-    gap: 2rem;
+    flex-wrap: wrap; /* Para telas menores */
+    gap: 1.5rem;
 }
 
 /* =======================
@@ -192,23 +203,27 @@ main.model-page {
 }
 .spec-item {
     padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    background-color: rgba(0,0,0,0.1);
 }
 .spec-item img { /* Ícone SVG/PNG */
     width: 60px;
     height: 60px;
     margin: 0 auto 1.5rem auto;
-    filter: invert(1); /* Assume ícones pretos */
+    filter: invert(70%) sepia(85%) saturate(1638%) hue-rotate(345deg) brightness(102%) contrast(102%); /* Laranja */
+    opacity: 0.8;
 }
 .spec-item h4 {
     font-size: 1.8rem;
     font-weight: 600;
-    color: var(--color-primary-orange);
+    color: var(--color-white); /* Título branco */
     margin-bottom: 0.5rem;
 }
 .spec-item p {
     font-size: 1.6rem;
-    font-weight: 300;
-    color: #ccc;
+    font-weight: 400; /* Um pouco mais de peso */
+    color: var(--color-primary-orange); /* Valor em laranja */
 }
 
 /* Specs Detalhadas */
@@ -226,8 +241,14 @@ main.model-page {
     padding: 2rem 0;
     border-bottom: 2px solid var(--color-primary-orange);
 }
+.specs-detailed-table tr {
+    transition: background-color 0.2s;
+}
+.specs-detailed-table tr:hover {
+    background-color: rgba(255,255,255,0.03);
+}
 .specs-detailed-table td {
-    padding: 1.5rem 0;
+    padding: 1.5rem 0.5rem; /* Adicionado padding lateral */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 1.6rem;
 }
@@ -247,7 +268,7 @@ main.model-page {
    ======================== */
 .model-gallery {
     padding: 8rem 0;
-    background-color: var(--color-white);
+    background-color: var(--color-background-light); /* Fundo claro */
 }
 
 .gallery-grid {
@@ -257,9 +278,10 @@ main.model-page {
 }
 .gallery-item {
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: var(--radius-md); /* Borda suave */
     cursor: pointer;
     position: relative;
+    box-shadow: var(--shadow-md);
 }
 .gallery-item img {
     width: 100%;
@@ -356,6 +378,7 @@ main.model-page {
         grid-template-columns: 1fr; /* 1 coluna */
     }
     .gallery-item.video-item {
+        grid-column: 1 / -1; /* Garante que ocupe a coluna única */
         height: 300px;
     }
 }
