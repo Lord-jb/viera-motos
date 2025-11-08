@@ -1,22 +1,30 @@
 /*
  * Arquivo: admin.css
- * Descrição: Estilos para o painel de 
- * administração (admin.html).
+ * Descrição: Estilos para o painel de administração (admin.html).
+ * Versão: Refatorada e Limpa
  */
 
 /* =======================
    1. RESET E GLOBAIS
    ======================== */
 :root {
+    /* Variáveis consolidadas */
     --color-primary-dark: #0D1B2A;
-    --color-primary-orange: #FF6F00;
+    --color-primary-orange: #f36523; /* Cor correta da Avelloz */
     --color-white: #FFFFFF;
+    --color-surface: #FFFFFF; /* Fundo de cards e views */
     --color-background-light: #F4F7FA; /* Fundo do painel */
     --color-text-dark: #333;
     --color-border: #DDE;
     --color-success: #28a745;
     --color-danger: #dc3545;
+    --color-sidebar-bg: #1a2634; /* Cor da sidebar movida para var */
     --font-family-main: 'Montserrat', 'Arial', sans-serif;
+}
+
+/* Base 10px para 'rem' (1.6rem = 16px) */
+html {
+    font-size: 62.5%;
 }
 
 * {
@@ -29,24 +37,25 @@ body {
     font-family: var(--font-family-main);
     background-color: var(--color-background-light);
     color: var(--color-text-dark);
-    font-size: 1.6rem;
+    font-size: 1.6rem; /* 16px */
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
 
-/* Dark mode variables (opt-in via .theme-dark on <body>) */
+/* Dark mode variables */
 .theme-dark {
     --color-background-light: #0f141b;
     --color-text-dark: #e5e7eb;
     --color-white: #0f1720;
     --color-surface: #111a25;
     --color-border: #223142;
+    --color-sidebar-bg: #0f141b;
 }
 
 /* =======================
    2. SEÇÃO DE LOGIN
    ======================== */
-.admin-container {
+.login-container {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -55,14 +64,11 @@ body {
     padding: 2rem;
 }
 
-/* Admin panel container should stretch layout (not center) */
-#admin-panel.admin-container { align-items: stretch; justify-content: stretch; }
-
 .login-box {
     width: 100%;
     max-width: 400px;
     padding: 4rem;
-    background-color: var(--color-white);
+    background-color: var(--color-surface);
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     text-align: center;
@@ -71,8 +77,7 @@ body {
 .admin-logo {
     width: 150px;
     margin-bottom: 2rem;
-    /* Placeholder: idealmente um logo escuro */
-    filter: invert(10%) brightness(0.8); 
+    filter: invert(10%) brightness(0.8);
 }
 
 .login-box h2 {
@@ -116,12 +121,14 @@ form {
     border: 1px solid var(--color-border);
     border-radius: 5px;
     font-family: var(--font-family-main);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: var(--color-surface);
+    color: var(--color-text-dark);
 }
 .form-group input:focus {
     outline: none;
     border-color: var(--color-primary-orange);
-    box-shadow: 0 0 0 2px rgba(255, 111, 0, 0.2);
+    box-shadow: 0 0 0 2px rgba(243, 101, 35, 0.2);
 }
 
 .form-group.checkbox-group {
@@ -151,7 +158,7 @@ form {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.08s ease, filter 0.2s;
+    transition: transform 0.08s ease, filter 0.2s, box-shadow 0.2s;
 }
 .btn-submit:hover {
     filter: brightness(1.05);
@@ -167,220 +174,35 @@ form {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
 }
 .btn-secondary:hover {
     background-color: #ddd;
 }
 
+/* Foco visível para Acessibilidade */
+.btn-submit:focus-visible, 
+.btn-secondary:focus-visible,
+.icon-button:focus-visible,
+.tab-link:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-background-light), 0 0 0 5px var(--color-primary-orange);
+}
+
 
 /* =======================
-   4. PAINEL DE ADMIN (LOGADO)
+   4. PAINEL DE ADMIN (Layout Principal)
    ======================== */
 #admin-panel {
     display: none; /* JS irá mostrar */
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0;
-    max-width: 100%;
-}
-
-.admin-header {
-    width: 100%;
-    padding: 2rem;
-    background-color: var(--color-primary-dark);
-    color: var(--color-white);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.admin-header h2 {
-    color: var(--color-white);
-    font-size: 2rem;
-}
-
-.admin-user-info {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-.admin-user-info span {
-    font-size: 1.4rem;
-    font-weight: 500;
-}
-
-.btn-logout {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--color-white);
-    background-color: var(--color-danger);
-    border: none;
-    border-radius: 5px;
-    padding: 0.8rem 1.5rem;
-    cursor: pointer;
-    transition: filter 0.2s;
-}
-.btn-logout:hover {
-    filter: brightness(1.1);
-}
-
-.admin-content {
-    width: 100%;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 2/3 para formulário, 1/3 para lista */
-    gap: 2rem;
-}
-
-/* =======================
-   5. CARDS DE CONTEÚDO
-   ======================== */
-.content-card {
-    background-color: var(--color-white);
-    border-radius: 8px;
-    padding: 3rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    margin-bottom: 2rem;
-}
-
-.content-card h3 {
-    font-size: 1.8rem;
-    color: var(--color-primary-dark);
-    border-bottom: 2px solid var(--color-primary-orange);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-}
-.content-card h4 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-}
-
-#offer-manager {
-    grid-column: 1 / -1; /* Ocupa a largura toda */
-}
-#model-manager {
-    grid-column: 1 / 2;
-}
-#model-list {
-    grid-column: 2 / 3;
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 2.5rem 0;
-}
-
-/* Gerenciador de Cores e Specs (Dinâmico) */
-.dynamic-input-group {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-.dynamic-input-group input {
-    flex: 1;
-}
-.btn-remove {
-    padding: 0 1rem;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--color-danger);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-
-/* Lista de Modelos Cadastrados */
-.model-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-}
-.model-list-item span {
-    font-weight: 700;
-}
-.model-list-item .btn-edit,
-.model-list-item .btn-delete {
-    font-size: 1.2rem;
-    padding: 0.5rem 0.8rem;
-    background-color: #eee;
-    color: var(--color-text-dark);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.model-list-item .btn-delete {
-    background-color: var(--color-danger);
-    color: var(--color-white);
-}
-
-/* =======================
-   6. RESPONSIVIDADE (MOBILE)
-   ======================== */
-@media (max-width: 992px) {
-    .admin-content {
-        grid-template-columns: 1fr; /* Coluna única */
-    }
-    #model-manager {
-        grid-column: 1 / -1;
-    }
-    #model-list {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 768px) {
-    .login-box {
-        padding: 2.5rem;
-    }
-    .admin-header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .content-card {
-        padding: 2rem;
-    }
-}
-
-/* ============================================== */
-/* == ESTILOS EXISTENTES (PARA CONTEXTO) == */
-/* ============================================== */
-/* Você provavelmente já tem estilos parecidos com estes.
-   Apenas certifique-se de que as novas seções se encaixem bem.
-*/
-
-:root {
-    /* Assumindo a cor laranja do site da Avelloz */
-    --color-primary-orange: #f36523; 
-    --color-dark-text: #333;
-    --color-light-bg: #f9f9f9;
-    --color-border: #ddd;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    background-color: var(--color-light-bg);
-}
-
-.admin-container {
-    display: flex;
+    flex-direction: row; /* Alterado de 'column' para layout sidebar+main */
     min-height: 100vh;
 }
 
 /* --- Sidebar (Menu Lateral) --- */
 .sidebar {
     width: 260px;
-    background: #1a2634; /* Dark navy for admin area */
+    background: var(--color-sidebar-bg);
     color: #fff;
     padding: 20px;
     position: sticky;
@@ -393,11 +215,24 @@ body {
     z-index: 1000;
 }
 
-.sidebar-header h3 {
+/* Scrollbar sutil */
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+
+
+.sidebar-header {
     text-align: center;
-    color: var(--color-primary-orange);
     margin-bottom: 30px;
+}
+.sidebar-header h3 {
+    color: var(--color-primary-orange);
     font-size: 24px;
+    margin-bottom: 5px;
+}
+.sidebar-header small {
+    font-size: 1.2rem;
+    opacity: 0.7;
 }
 
 .sidebar-nav ul {
@@ -416,33 +251,101 @@ body {
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .sidebar-nav a:hover,
 .sidebar-nav a.active-view { /* Classe para o JS adicionar */
     background-color: var(--color-primary-orange);
+    color: var(--color-white);
 }
 
 .sidebar-nav a i {
     margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Estilo do botão Sair */
+#logout-button {
+    color: #ffaaaa;
+}
+#logout-button:hover {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+/* Foco para Acessibilidade */
+.sidebar-nav a:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-primary-orange);
 }
 
 /* --- Conteúdo Principal --- */
 .main-content {
     flex-grow: 1;
     padding: 30px;
+    overflow-y: auto;
 }
 
-.view {
-    background-color: var(--color-surface, #ffffff);
-    padding: 30px;
+/* --- Topbar --- */
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0; /* Gruda no topo do .main-content */
+    z-index: 900;
+}
+.topbar-title { 
+    font-weight: 700; 
+    opacity: .9; 
+    font-size: 2rem;
+    margin: 0;
+}
+.topbar-actions { 
+    margin-left: auto; 
+    display: flex; 
+    gap: 8px; 
+}
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
     border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-dark);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.icon-button:hover {
+    background: #f1f1f1;
+}
+.icon-button i { pointer-events: none; }
+
+
+/* --- Views (Cards de Conteúdo) --- */
+.view {
+    background-color: var(--color-surface);
+    padding: 30px;
+    border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    display: none; /* JS controla a exibição */
+}
+/* A view ativa é mostrada */
+.view.active-view {
+    display: block;
 }
 
 .view h2 {
-    color: var(--color-dark-text);
+    color: var(--color-text-dark);
     margin-top: 0;
     border-bottom: 2px solid var(--color-border);
     padding-bottom: 15px;
@@ -450,20 +353,19 @@ body {
 }
 
 
-/* ============================================== */
-/* == NOVOS ESTILOS (Abas, Tabelas) == */
-/* ============================================== */
-/* Adicione este bloco ao seu CSS */
+/* =======================
+   5. ABAS E TABELAS
+   ======================== */
 
 /* --- Estilo das Abas (Tabs) --- */
 .tabs {
     overflow: hidden;
-    border-bottom: 2px solid var(--color-primary-orange);
+    border-bottom: 2px solid var(--color-border);
     margin-bottom: 25px;
 }
 
 .tab-link {
-    background-color: #f1f1f1;
+    background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
@@ -471,24 +373,29 @@ body {
     transition: 0.3s;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 6px 6px 0 0;
     margin-right: 4px;
-    color: var(--color-dark-text);
+    color: var(--color-text-dark);
+    opacity: 0.7;
+    border-bottom: 3px solid transparent;
 }
 
 .tab-link:hover {
-    background-color: #ddd;
+    opacity: 1;
 }
 
 .tab-link.active {
-    background-color: var(--color-primary-orange);
-    color: white;
+    opacity: 1;
+    color: var(--color-primary-orange);
+    border-bottom-color: var(--color-primary-orange);
 }
 
 /* --- Conteúdo das Abas --- */
 .tab-content {
     display: none; /* O JS vai mudar para 'block' */
     animation: fadeIn 0.5s; /* Efeito suave */
+}
+.tab-content.active {
+    display: block;
 }
 
 .tab-content h3 {
@@ -497,7 +404,6 @@ body {
     margin-bottom: 15px;
 }
 
-/* Animação de Fade-in */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -523,7 +429,8 @@ body {
     padding: 12px 15px;
     border-bottom: 1px solid var(--color-border);
     text-align: left;
-    color: #444;
+    color: var(--color-text-dark);
+    font-size: 1.4rem;
 }
 
 .admin-table th {
@@ -532,9 +439,16 @@ body {
     color: #333;
     border-top: none;
 }
+/* Aplicando vars de dark mode na tabela */
+.theme-dark .admin-table th {
+    background-color: #1a2634;
+}
 
 .admin-table tbody tr:hover {
     background-color: #f5f5f5;
+}
+.theme-dark .admin-table tbody tr:hover {
+    background-color: #223142;
 }
 
 .admin-table tbody tr:last-child td {
@@ -542,56 +456,96 @@ body {
 }
 
 /* =======================
-   7. TOPBAR E MELHORIAS MODERNAS
+   6. ITENS DE DASHBOARD (Ex: Métricas)
    ======================== */
-.admin-topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--color-surface, #fff);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-.topbar-title { font-weight: 700; opacity: .9; }
-.topbar-actions { margin-left: auto; display: flex; gap: 8px; }
-.icon-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    background: linear-gradient(135deg, #FF7A1A 0%, var(--color-primary-orange) 100%);
-    color: #fff;
-    cursor: pointer;
-}
-.icon-button i { pointer-events: none; }
-
-/* Dashboard metric cards */
 .metrics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
 }
-.metric-card { background: var(--color-surface, #fff); border: 1px solid var(--color-border); border-radius: 10px; padding: 16px; }
-.metric-label { opacity: .7; font-size: 12px; }
-.metric-value { font-size: 28px; font-weight: 800; }
-
-/* Sidebar overlay for mobile */
-.sidebar-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 900; display: none; }
-.sidebar-open .sidebar-backdrop { display: block; }
-
-@media (max-width: 992px) {
-  .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
-  .sidebar-open .sidebar { transform: translateX(0); }
-  #admin-panel { padding: 0; }
+.metric-card { 
+    background: var(--color-surface); 
+    border: 1px solid var(--color-border); 
+    border-radius: 10px; 
+    padding: 16px; 
+}
+.metric-label { 
+    opacity: .7; 
+    font-size: 1.2rem; 
+}
+.metric-value { 
+    font-size: 2.8rem; 
+    font-weight: 800;
+    color: var(--color-primary-orange);
 }
 
-/* Stronger, modern cards override */
-.content-card { background-color: var(--color-surface, #fff); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
-.view { background-color: var(--color-surface, #fff); border-radius: 12px; }
+
+/* =======================
+   7. RESPONSIVIDADE (MOBILE)
+   ======================== */
+.sidebar-backdrop { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,.35); 
+    z-index: 990; /* Abaixo da sidebar */
+    display: none; 
+}
+.sidebar-open .sidebar-backdrop { 
+    display: block; 
+}
+
+@media (max-width: 992px) {
+  .sidebar { 
+      position: fixed; 
+      left: 0; 
+      top: 0; 
+      height: 100vh; 
+      transform: translateX(-100%); 
+    }
+  .sidebar-open .sidebar { 
+      transform: translateX(0); 
+    }
+  .main-content {
+      padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+    /* Login */
+    .login-box {
+        padding: 2.5rem;
+    }
+    
+    /* Tabelas */
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+        font-size: 1.3rem;
+    }
+    
+    /* Topbar */
+    .topbar-title {
+        font-size: 1.8rem;
+    }
+    .main-content {
+        padding-top: 80px; /* Garante espaço para o topbar fixo */
+    }
+    .admin-topbar {
+        top: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 12px 15px;
+        position: fixed; /* Fixa o topbar no mobile */
+        margin-bottom: 0;
+    }
+    
+    /* View */
+    .view {
+        padding: 15px;
+    }
+    .view h2 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+}
