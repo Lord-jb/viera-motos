@@ -64,8 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const col = firestore.collection('testRides');
-      const ref = await col.add(data);
+      let ref;
+      if (typeof window.addLead === 'function') {
+        ref = await window.addLead({
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          model: data.modelId,
+          message: data.notes,
+        });
+      } else {
+        const col = firestore.collection('testRides');
+        ref = await col.add(data);
+      }
       feedback.textContent = 'Solicitação enviada com sucesso! Entraremos em contato.';
       feedback.style.color = 'green';
       form.reset();

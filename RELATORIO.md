@@ -79,3 +79,18 @@ Entregas:
 Validações:
 - Criação/edição/exclusão de banners reflete na home sem recarregar a configuração do site (após reload de página pública).
 - Respeito a papéis para proteger ações.
+
+# RELATÓRIO TÉCNICO – Leads/Formulários (Etapa adicional)
+
+Entregas:
+- Site público:
+  - `assets/js/leads.js`: expõe `window.addLead(data)` para envio de leads ao Firestore (testRides) com campos: name, phone, email, model, message, createdAt.
+  - `test-drive.html`: inclui `assets/js/leads.js` após `firebase-init.js`.
+  - `assets/js/test-drive.js`: passa a usar `addLead()` quando disponível, mantendo fallback para `firestore.collection('testRides').add(...)`.
+- Admin:
+  - `admin/forms.html`: página para listagem de leads (testRides) com total e botão "Exportar CSV".
+  - `admin/js/forms.js`: assinatura em tempo real (`onSnapshot`) da coleção `testRides`, renderiza tabela e exporta CSV com cabeçalhos: Nome, Telefone, Email, Modelo, Mensagem, Data.
+
+Validações/Requisitos atendidos:
+- Integração do formulário de test-drive com Firestore via função `addLead()`.
+- Listagem administrativa em tempo real e exportação CSV.
