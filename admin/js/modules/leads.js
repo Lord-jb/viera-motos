@@ -73,6 +73,7 @@ export function mountLeadsFeature() {
     if (firstContent) firstContent.style.display = 'block';
   }
   // Carrega test-rides por padrão
-  try { await loadTestRides(); } catch (_) {}
+  try { loadTestRides().catch(() => {}); } catch (_) {}
 }
+
 

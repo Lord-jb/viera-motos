@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('login-form');
   const feedback = document.getElementById('login-error');
   const logoutBtn = document.getElementById('logout-button');
+  const menu = document.getElementById('admin-sidebar-menu');
   const sidebarToggle = document.getElementById('sidebar-toggle');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
   const themeToggle = document.getElementById('theme-toggle');
