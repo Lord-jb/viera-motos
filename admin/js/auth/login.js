@@ -29,9 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
       await signInWithEmailAndPassword(auth, email, password);
       // onAuthStateChanged cuidará do redirecionamento
     } catch (err) {
-      // Mensagem amigável
-      errorEl.textContent = 'Email ou senha inválidos.';
+      // Mostra código/mensagem para diagnóstico rápido
+      const code = (err && err.code) ? String(err.code) : 'auth/error';
+      console.error('Login error:', code, err && err.message);
+      if (code === 'auth/unauthorized-domain') {
+        errorEl.textContent = 'Domínio não autorizado no Firebase Auth (Authorized domains).';
+      } else if (code === 'auth/operation-not-allowed') {
+        errorEl.textContent = 'Provedor Email/Senha não habilitado nas configurações de Auth.';
+      } else if (code === 'auth/invalid-api-key') {
+        errorEl.textContent = 'API Key inválida. Verifique a configuração do Firebase no admin.';
+      } else if (code === 'auth/network-request-failed') {
+        errorEl.textContent = 'Falha de rede. Verifique sua conexão ou regras de CORS.';
+      } else {
+        errorEl.textContent = 'Falha ao entrar: ' + code;
+      }
     }
   });
 });
-
