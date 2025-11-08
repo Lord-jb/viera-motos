@@ -1,7 +1,7 @@
-// Guard de Sessão (ES Modules)
+﻿// Guard de Sessão (ES Modules)
 // - Protege páginas do admin exigindo usuário autenticado
 // - Se não autenticado, redireciona para login.html
-// - Se autenticado, opcionalmente exibe email no header (#user-email)
+// - Se autenticado, exibe email e ajusta menu por papel
 
 import { auth } from '../../js/modules/firebase.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
@@ -16,32 +16,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById('user-email');
     if (el) el.textContent = user.email || '';
 
-    // Papel do usuário
     const role = await getUserRole(user);
     window.__ROLE = role;
 
-    // Restringe itens do menu conforme papel
     const menu = document.getElementById('admin-sidebar-menu');
     if (menu) {
       const modelsLink = menu.querySelector('a[data-view="models"]');
       const alertLink = menu.querySelector('a[data-view="alert"]');
       const leadsLink = menu.querySelector('a[data-view="leads"]');
-      // Viewer: apenas leads
+      const bannersLink = menu.querySelector('a[data-view="banners"]');
+      const settingsLink = menu.querySelector('a[data-view="settings"]');
+      const auditLink = menu.querySelector('a[data-view="audit"]');
+
       if (role === Roles.Viewer) {
         if (modelsLink) modelsLink.style.display = 'none';
         if (alertLink) alertLink.style.display = 'none';
+        if (bannersLink) bannersLink.style.display = 'none';
+        if (settingsLink) settingsLink.style.display = 'none';
+        if (auditLink) auditLink.style.display = 'none';
         if (leadsLink) leadsLink.style.display = '';
       }
-      // Editor: modelos e alertas; leads também
       if (role === Roles.Editor) {
         if (modelsLink) modelsLink.style.display = '';
         if (alertLink) alertLink.style.display = '';
+        if (bannersLink) bannersLink.style.display = '';
+        if (settingsLink) settingsLink.style.display = 'none';
+        if (auditLink) auditLink.style.display = 'none';
         if (leadsLink) leadsLink.style.display = '';
       }
-      // Admin/Owner: tudo
       if (role === Roles.Admin || role === Roles.Owner) {
         if (modelsLink) modelsLink.style.display = '';
         if (alertLink) alertLink.style.display = '';
+        if (bannersLink) bannersLink.style.display = '';
+        if (settingsLink) settingsLink.style.display = '';
+        if (auditLink) auditLink.style.display = '';
         if (leadsLink) leadsLink.style.display = '';
       }
     }
