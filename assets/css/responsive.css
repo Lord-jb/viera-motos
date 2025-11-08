@@ -1,0 +1,187 @@
+/*
+ * Arquivo: responsive.css
+ * Descrição: Contém todas as media queries para 
+ * tablets e dispositivos móveis (mobile-first).
+ */
+
+/* =======================
+   1. TABLET (<= 992px)
+   ======================== */
+@media (max-width: 992px) {
+    html {
+        font-size: 60%; /* Ajuste base (1rem = 9.6px) */
+    }
+
+    .container {
+        max-width: 900px;
+        padding: 0 3rem; /* Aumenta padding lateral */
+    }
+
+    /* Navegação */
+    .main-nav {
+        /* Escondemos o menu principal para dar espaço */
+        display: none;
+    }
+    
+    /* Mostramos o Menu Hambúrguer */
+    .hamburger-menu {
+        display: block;
+    }
+
+    /* Ativamos o menu mobile (classe 'open' via JS) */
+    .main-nav.mobile-open {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--color-primary-dark);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        transform: translateY(-100%);
+        animation: slideDown 0.5s ease forwards;
+    }
+    .nav-links {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .nav-link {
+        font-size: 2.4rem; /* Tamanho maior para menu mobile */
+    }
+    .nav-link.btn {
+        padding: 1.5rem 3rem; /* Botão maior */
+    }
+
+    /* Animação Hambúrguer (X) */
+    .hamburger-menu.open .line:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger-menu.open .line:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-menu.open .line:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+
+    /* Hero */
+    .hero-title {
+        font-size: 5.5rem;
+    }
+    .hero-subtitle {
+        font-size: 2.2rem;
+    }
+
+    /* Vitrine de Modelos */
+    .models-grid {
+        /* De 3 colunas para 1 coluna (melhor em tablet) */
+        grid-template-columns: 1fr;
+        max-width: 450px; /* Centraliza o card */
+        margin: 5rem auto 0 auto;
+    }
+    
+    .model-card {
+        margin-bottom: 2rem;
+    }
+
+    /* Rodapé */
+    .footer-grid {
+        /* De 4 colunas para 2 colunas */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =======================
+   2. SMARTPHONE (<= 768px)
+   ======================== */
+@media (max-width: 768px) {
+    html {
+        font-size: 58%; /* Ajuste base (1rem = 9.28px) */
+    }
+
+    .container {
+        padding: 0 2rem; /* Retorna padding */
+    }
+
+    /* Header */
+    .main-header {
+        padding: 1.5rem 0;
+    }
+
+    /* Hero */
+    .hero-section {
+        min-height: 90vh; /* Reduz altura no mobile */
+    }
+    .hero-title {
+        font-size: 3.8rem; /* Título muito menor */
+    }
+    .hero-subtitle {
+        font-size: 1.8rem;
+    }
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.4rem;
+    }
+
+    /* Títulos de Seção */
+    .section-title h2 {
+        font-size: 2.8rem;
+    }
+
+    /* Vitrine de Modelos */
+    .models-grid {
+        max-width: 100%; /* Ocupa largura total */
+        gap: 2rem;
+    }
+    .model-card-image {
+        height: 200px; /* Reduz altura da imagem */
+    }
+
+    /* CTA */
+    .cta-section {
+        padding: 6rem 0;
+    }
+    .cta-section h2 {
+        font-size: 2.4rem;
+    }
+    .cta-section p {
+        font-size: 1.6rem;
+    }
+
+    /* Rodapé */
+    .footer-grid {
+        /* 1 coluna no mobile */
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+    .footer-links {
+        align-items: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-bottom {
+        text-align: center;
+    }
+
+}
+
+
+/* =======================
+   3. ANIMAÇÕES ESPECÍFICAS
+   ======================== */
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}

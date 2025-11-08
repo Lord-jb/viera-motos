@@ -1,0 +1,521 @@
+/*
+ * Arquivo: admin.css
+ * Descrição: Estilos para o painel de 
+ * administração (admin.html).
+ */
+
+/* =======================
+   1. RESET E GLOBAIS
+   ======================== */
+:root {
+    --color-primary-dark: #0D1B2A;
+    --color-primary-orange: #FF6F00;
+    --color-white: #FFFFFF;
+    --color-background-light: #F4F7FA; /* Fundo do painel */
+    --color-text-dark: #333;
+    --color-border: #DDE;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --font-family-main: 'Montserrat', 'Arial', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-main);
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    font-size: 1.6rem;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =======================
+   2. SEÇÃO DE LOGIN
+   ======================== */
+.admin-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 4rem;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.admin-logo {
+    width: 150px;
+    margin-bottom: 2rem;
+    /* Placeholder: idealmente um logo escuro */
+    filter: invert(10%) brightness(0.8); 
+}
+
+.login-box h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.login-box p {
+    color: #666;
+    margin-bottom: 2.5rem;
+    font-size: 1.4rem;
+}
+
+/* =======================
+   3. FORMULÁRIOS GERAIS
+   ======================== */
+form {
+    width: 100%;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="file"],
+.form-group textarea {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    font-family: var(--font-family-main);
+    transition: border-color 0.2s;
+}
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary-orange);
+    box-shadow: 0 0 0 2px rgba(255, 111, 0, 0.2);
+}
+
+.form-group.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.form-group.checkbox-group input {
+    width: auto;
+}
+
+.error-message {
+    color: var(--color-danger);
+    font-size: 1.4rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Botões */
+.btn-submit {
+    width: 100%;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-white);
+    background-color: var(--color-primary-orange);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+.btn-submit:hover {
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--color-primary-dark);
+    background-color: #eee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-secondary:hover {
+    background-color: #ddd;
+}
+
+
+/* =======================
+   4. PAINEL DE ADMIN (LOGADO)
+   ======================== */
+#admin-panel {
+    display: none; /* JS irá mostrar */
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    max-width: 100%;
+}
+
+.admin-header {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.admin-header h2 {
+    color: var(--color-white);
+    font-size: 2rem;
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.admin-user-info span {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.btn-logout {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-white);
+    background-color: var(--color-danger);
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+.btn-logout:hover {
+    filter: brightness(1.1);
+}
+
+.admin-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2/3 para formulário, 1/3 para lista */
+    gap: 2rem;
+}
+
+/* =======================
+   5. CARDS DE CONTEÚDO
+   ======================== */
+.content-card {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    padding: 3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.content-card h3 {
+    font-size: 1.8rem;
+    color: var(--color-primary-dark);
+    border-bottom: 2px solid var(--color-primary-orange);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.content-card h4 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+#offer-manager {
+    grid-column: 1 / -1; /* Ocupa a largura toda */
+}
+#model-manager {
+    grid-column: 1 / 2;
+}
+#model-list {
+    grid-column: 2 / 3;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 2.5rem 0;
+}
+
+/* Gerenciador de Cores e Specs (Dinâmico) */
+.dynamic-input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.dynamic-input-group input {
+    flex: 1;
+}
+.btn-remove {
+    padding: 0 1rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-danger);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Lista de Modelos Cadastrados */
+.model-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+.model-list-item span {
+    font-weight: 700;
+}
+.model-list-item .btn-edit,
+.model-list-item .btn-delete {
+    font-size: 1.2rem;
+    padding: 0.5rem 0.8rem;
+    background-color: #eee;
+    color: var(--color-text-dark);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.model-list-item .btn-delete {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+
+/* =======================
+   6. RESPONSIVIDADE (MOBILE)
+   ======================== */
+@media (max-width: 992px) {
+    .admin-content {
+        grid-template-columns: 1fr; /* Coluna única */
+    }
+    #model-manager {
+        grid-column: 1 / -1;
+    }
+    #model-list {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-box {
+        padding: 2.5rem;
+    }
+    .admin-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .content-card {
+        padding: 2rem;
+    }
+}
+
+/* ============================================== */
+/* == ESTILOS EXISTENTES (PARA CONTEXTO) == */
+/* ============================================== */
+/* Você provavelmente já tem estilos parecidos com estes.
+   Apenas certifique-se de que as novas seções se encaixem bem.
+*/
+
+:root {
+    /* Assumindo a cor laranja do site da Avelloz */
+    --color-primary-orange: #f36523; 
+    --color-dark-text: #333;
+    --color-light-bg: #f9f9f9;
+    --color-border: #ddd;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: var(--color-light-bg);
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- Sidebar (Menu Lateral) --- */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50; /* Um azul escuro/preto para o admin */
+    color: white;
+    padding: 20px;
+}
+
+.sidebar-header h3 {
+    text-align: center;
+    color: var(--color-primary-orange);
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active-view { /* Classe para o JS adicionar */
+    background-color: var(--color-primary-orange);
+}
+
+.sidebar-nav a i {
+    margin-right: 10px;
+}
+
+/* --- Conteúdo Principal --- */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+.view {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.view h2 {
+    color: var(--color-dark-text);
+    margin-top: 0;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+
+/* ============================================== */
+/* == NOVOS ESTILOS (Abas, Tabelas) == */
+/* ============================================== */
+/* Adicione este bloco ao seu CSS */
+
+/* --- Estilo das Abas (Tabs) --- */
+.tabs {
+    overflow: hidden;
+    border-bottom: 2px solid var(--color-primary-orange);
+    margin-bottom: 25px;
+}
+
+.tab-link {
+    background-color: #f1f1f1;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px 6px 0 0;
+    margin-right: 4px;
+    color: var(--color-dark-text);
+}
+
+.tab-link:hover {
+    background-color: #ddd;
+}
+
+.tab-link.active {
+    background-color: var(--color-primary-orange);
+    color: white;
+}
+
+/* --- Conteúdo das Abas --- */
+.tab-content {
+    display: none; /* O JS vai mudar para 'block' */
+    animation: fadeIn 0.5s; /* Efeito suave */
+}
+
+.tab-content h3 {
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Animação de Fade-in */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Wrapper da Tabela (para Scroll) --- */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Adiciona scroll horizontal se a tabela for larga */
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+}
+
+/* --- Estilo das Tabelas do Admin --- */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Garante que a tabela tenha uma largura mínima */
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    color: #444;
+}
+
+.admin-table th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    color: #333;
+    border-top: none;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}

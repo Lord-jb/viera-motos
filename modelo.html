@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregando Modelo... - Avelloz Motos Marabá</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/models.css">
+    <link rel="stylesheet" href="assets/css/responsive.css"> 
+</head>
+<body>
+    <header class="main-header" id="main-header">
+        <div class="container">
+            <a href="index.html" class="header-logo"><span>Avelloz Marabá</span></a>
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html#models" class="nav-link active">Modelos</a></li>
+                    <li><a href="financiamento.html" class="nav-link">Financiamento</a></li>
+                    <li><a href="servicos.html" class="nav-link">Serviços</a></li>
+                    <li><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+                    <li><a href="#" class="nav-link btn btn-primary-outline">Agende um Test-Ride</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu"><span class="line"></span><span class="line"></span><span class="line"></span></button>
+        </div>
+    </header>
+    <nav class="model-nav-sticky">
+        <div class="container">
+            <div class="model-nav-links">
+                <a href="#overview" class="active">Visão Geral</a>
+                <a href="#specs">Ficha Técnica</a>
+                <a href="#gallery">Galeria</a>
+            </div>
+            <div class="model-nav-cta"><a href="#" class="btn btn-primary">Monte a sua</a></div>
+        </div>
+    </nav>
+    <main class="model-page">
+        <section class="model-hero" id="overview">
+            <div class="model-hero-image" id="model-hero-image"><p>Carregando imagem...</p></div>
+            <div class="model-hero-info">
+                <span class="model-tag" id="model-hero-info-tag">...</span>
+                <h1 class="model-title" id="model-hero-info-title">Carregando...</h1>
+                <p class="model-price" id="model-hero-info-price">A partir de <span>R$ ...</span></p>
+                <div class="model-color-selector">
+                    <h4>Cores Disponíveis:</h4>
+                    <div class="model-color-swatches" id="model-color-swatches"></div>
+                </div>
+                <div class="action-buttons">
+                    <a href="test-drive.html" class="btn btn-primary" id="btn-test-ride">Agendar Test-Ride</a>
+                    <a href="consulta.html" class="btn btn-secondary">Consulta de pedido</a>
+                </div>
+            </div>
+        </section>
+        <section class="model-specs" id="specs">
+            <div class="container">
+                <div class="section-title"><span>Performance</span><h2>Ficha Técnica</h2></div>
+                <div class="specs-summary-grid" id="specs-summary-grid"></div>
+                <table class="specs-detailed-table"><tbody id="specs-detailed-table-body"></tbody></table>
+            </div>
+        </section>
+        <section class="model-gallery" id="gallery">
+            <div class="container">
+                <div class="section-title"><span>Design</span><h2>Galeria de Imagens</h2></div>
+                <div class="gallery-grid" id="gallery-grid-dynamic"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer" id="main-footer"><div class="container"></div></footer>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/menu.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+    <script src="assets/js/firebase-init.js"></script>
+    
+    <script src="assets/js/modelo-dynamic.js"></script>
+    
+</body>
+</html>

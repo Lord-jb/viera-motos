@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financiamento - Avelloz Marabá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <header class="main-header" id="main-header">
+    <div class="container">
+      <a href="index.html" class="header-logo"><span>Avelloz Marabá</span></a>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html#models" class="nav-link">Modelos</a></li>
+          <li><a href="financiamento.html" class="nav-link active">Financiamento</a></li>
+          <li><a href="servicos.html" class="nav-link">Serviços</a></li>
+          <li><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+          <li><a href="test-drive.html" class="nav-link btn btn-primary-outline">Agende um Test-Ride</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu">
+        <span class="line"></span><span class="line"></span><span class="line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main style="padding-top: 9rem;">
+    <section class="cta-section">
+      <div class="container">
+        <div class="section-title">
+          <span>Condições</span>
+          <h2>Financiamento</h2>
+        </div>
+        <p>Trabalhamos com os principais bancos e financeiras. Preencha os dados abaixo para uma pré‑análise sem compromisso.</p>
+        <div class="form-card" style="margin-top:2rem;">
+          <form id="fin-form">
+            <div class="form-grid">
+              <div class="form-group"><label for="f-name">Nome</label><input id="f-name" required /></div>
+              <div class="form-group"><label for="f-email">Email</label><input id="f-email" type="email" required /></div>
+              <div class="form-group"><label for="f-phone">Telefone</label><input id="f-phone" type="tel" required /></div>
+              <div class="form-group"><label for="f-model">Modelo</label><input id="f-model" placeholder="AZ160 XTREME" /></div>
+              <div class="form-group form-group-full"><label for="f-notes">Observações</label><textarea id="f-notes" rows="3"></textarea></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">Solicitar Simulação</button><p id="fin-feedback" class="form-feedback"></p></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer" id="main-footer"><div class="container"><div class="footer-bottom"><p>&copy; 2025 Viera Moto Center Marabá. Todos os direitos reservados.</p></div></div></footer>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/menu.js"></script>
+  <script>
+    document.getElementById('fin-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      document.getElementById('fin-feedback').textContent = 'Solicitação enviada! Em breve entraremos em contato.';
+      this.reset();
+    });
+  </script>
+</body>
+</html>

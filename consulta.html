@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta de Pedido - Avelloz Marabá</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/animations.css" />
+  <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+  <header class="main-header" id="main-header">
+    <div class="container">
+      <a href="index.html" class="header-logo"><span>Avelloz Marabá</span></a>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-links">
+          <li><a href="index.html#models" class="nav-link">Modelos</a></li>
+          <li><a href="financiamento.html" class="nav-link">Financiamento</a></li>
+          <li><a href="servicos.html" class="nav-link">Serviços</a></li>
+          <li><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+          <li><a href="test-drive.html" class="nav-link btn btn-primary-outline">Agende um Test-Ride</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu"><span class="line"></span><span class="line"></span><span class="line"></span></button>
+    </div>
+  </header>
+
+  <main style="padding-top: 9rem;">
+    <section class="cta-section">
+      <div class="container">
+        <div class="section-title"><span>Acompanhamento</span><h2>Consulta de Pedido</h2></div>
+        <div class="form-card">
+          <form id="consulta-form">
+            <div class="form-grid">
+              <div class="form-group"><label for="c-code">Número do pedido</label><input id="c-code" required /></div>
+              <div class="form-group"><label for="c-phone">Telefone</label><input id="c-phone" type="tel" required /></div>
+              <div class="form-group form-group-full"><label for="c-notes">Mensagem</label><textarea id="c-notes" rows="3" placeholder="Opcional"></textarea></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">Consultar</button><p id="consulta-feedback" class="form-feedback"></p></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer" id="main-footer"><div class="container"><div class="footer-bottom"><p>&copy; 2025 Viera Moto Center Marabá. Todos os direitos reservados.</p></div></div></footer>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+  <script src="assets/js/firebase-init.js"></script>
+  <script>
+    document.getElementById('consulta-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const data = {
+        code: document.getElementById('c-code').value.trim(),
+        phone: document.getElementById('c-phone').value.trim(),
+        notes: document.getElementById('c-notes').value.trim() || null,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+      try {
+        await firestore.collection('orderQueries').add(data);
+        document.getElementById('consulta-feedback').textContent = 'Sua consulta foi registrada. Nossa equipe retornará em breve.';
+        this.reset();
+      } catch(err) {
+        document.getElementById('consulta-feedback').textContent = 'Não foi possível enviar agora. Tente novamente.';
+      }
+    });
+  </script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/menu.js"></script>
+</body>
+</html>

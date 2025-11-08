@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Avelloz Motos - Viera Moto Center MarabÁ</title>
+    <meta name="description" content="Conheça a linha completa de motos Avelloz 2025 na Viera Moto Center em MarabÁ.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    </head>
+<body>
+
+    <header class="main-header" id="main-header">
+        <div class="container">
+            <a href="index.html" class="header-logo">
+                 <span>Avelloz MarabÁ</span>
+            </a>
+            <nav class="main-nav" id="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#models" class="nav-link active">Modelos</a></li>
+                    <li><a href="financiamento.html" class="nav-link">Financiamento</a></li>
+                    <li><a href="servicos.html" class="nav-link">Serviços</a></li>
+                    <li><a href="sobre.html" class="nav-link">Sobre Nós</a></li>
+                    <li><a href="test-drive.html" class="nav-link btn btn-primary-outline">Agende um Test-Ride</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" id="hamburger-menu" aria-label="Abrir menu">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="hero-section">
+            <video class="hero-video" autoplay muted loop playsinline poster="assets/images/banners/hero-poster.svg">
+                <source src="assets/videos/az160.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title animate-fade-in-up">AVENTURA SEM LIMITES</h1>
+                <h2 class="hero-subtitle animate-fade-in-up" style="animation-delay: 0.3s;">
+                    Conheça a nova Avelloz AZ160 XTREME
+                </h2>
+                <a href="modelo.html?id=az160-xtreme" class="btn btn-primary animate-fade-in-up" style="animation-delay: 0.6s;">
+                    Descubra o Modelo
+                </a>
+            </div>
+        </section>
+
+        <section class="models-showcase" id="models">
+            <div class="container">
+                <div class="section-title">
+                    <span>NOSSAS MOTOS</span>
+                    <h2>Conheça A LINHA 2025</h2>
+                </div>
+
+                <div class="models-grid" id="models-grid-container">
+                    <p style="color: white; text-align: center; font-size: 1.8rem;">
+                        Carregando modelos...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>VIERA MOTO CENTER MarabÁ</h2>
+                <p>
+                    Somos sua concessionÃ¡ria oficial Avelloz. Venha nos visitar e agende 
+                    um test-ride para sentir a emoção de pilotar sua nova moto.
+                </p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Viera%20Moto%20Center%20MarabÁ3%A1" class="btn btn-secondary" target="_blank" rel="noopener">Encontre-nos no Mapa</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer" id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4 class="footer-logo-text">Avelloz Motos<br>Viera Moto Center</h4>
+                </div>
+                <div class="footer-column">
+                    <h5>Modelos</h5>
+                    <ul class="footer-links" id="footer-models-list">
+                        </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Financiamento</a></li>
+                        <li><a href="#">Serviços e Peças</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Siga-nos</h5>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Viera Moto Center MarabÁ. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="assets/js/menu.js"></script>
+    <script defer src="assets/js/slider.js"></script>
+
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+
+    <script defer src="assets/js/firebase-init.js"></script>
+    <script defer src="assets/js/home-dynamic.js"></script>
+
+    </body>
+    </html>
+
+

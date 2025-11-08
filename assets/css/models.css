@@ -1,0 +1,361 @@
+/*
+ * Arquivo: models.css
+ * Descrição: Estilos específicos para as páginas de 
+ * detalhes de cada modelo de moto.
+ */
+
+
+/* =======================
+   1. LAYOUT GERAL DO MODELO
+   ======================== */
+
+/* O 'main' nas páginas de modelo começa após o header fixo */
+main.model-page {
+    padding-top: 8rem; /* Altura aproximada do header */
+}
+
+/* Sub-navegação 'sticky' (estilo Triumph)
+   Para "Visão Geral", "Ficha Técnica", "Galeria" 
+*/
+.model-nav-sticky {
+    position: sticky;
+    top: 8rem; /* Abaixo do header principal */
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 900;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.model-nav-sticky .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.model-nav-links {
+    display: flex;
+    gap: 3rem;
+}
+.model-nav-links a {
+    padding: 2rem 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition-normal);
+}
+.model-nav-links a:hover,
+.model-nav-links a.active {
+    color: var(--color-primary-dark);
+    border-bottom-color: var(--color-primary-orange);
+}
+
+.model-nav-cta .btn {
+    padding: 1rem 2rem;
+}
+
+/* =======================
+   2. SEÇÃO HERO DO MODELO
+   ======================== */
+
+.model-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 50% / 50% */
+    align-items: center;
+    min-height: calc(100vh - 16rem); /* Altura total - header - nav sticky */
+    background-color: var(--color-white);
+}
+
+/* Lado Esquerdo (Imagem) */
+.model-hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #FAFAFA; /* Fundo levemente cinza */
+    padding: 4rem;
+    position: relative; /* Para o seletor de cor */
+}
+
+.model-hero-image img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    /* Imagens de cores diferentes ficarão aqui, sobrepostas */
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.model-hero-image img.active {
+    opacity: 1;
+    position: relative; /* Imagem ativa toma o espaço */
+}
+
+/* Lado Direito (Info) */
+.model-hero-info {
+    padding: 0 6rem;
+}
+
+.model-tag {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-primary-orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.model-title {
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.model-price {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--color-text-dark);
+    margin-bottom: 3rem;
+}
+.model-price span {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+/* Seletor de Cores */
+.model-color-selector {
+    margin-bottom: 4rem;
+}
+.model-color-selector h4 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-dark);
+}
+.model-color-swatches {
+    display: flex;
+    gap: 1.5rem;
+}
+.color-swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--color-border);
+    transition: var(--transition-fast);
+    position: relative;
+}
+.color-swatch:hover {
+    border-color: var(--color-text-light);
+}
+.color-swatch.active {
+    border-color: var(--color-primary-orange);
+    transform: scale(1.1);
+}
+.color-swatch[data-color="blue"] { background-color: #0D1B2A; }
+.color-swatch[data-color="orange"] { background-color: #FF6F00; }
+.color-swatch[data-color="black"] { background-color: #222; }
+.color-swatch[data-color="white"] { background-color: #FFF; }
+
+
+/* Botões de Ação */
+.action-buttons {
+    display: flex;
+    gap: 2rem;
+}
+
+/* =======================
+   3. SEÇÃO FICHA TÉCNICA
+   ======================== */
+.model-specs {
+    padding: 8rem 0;
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+}
+
+.model-specs .section-title h2 {
+    color: var(--color-white);
+}
+
+/* Specs Resumidas (Ícones) */
+.specs-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    margin-bottom: 6rem;
+    text-align: center;
+}
+.spec-item {
+    padding: 2rem;
+}
+.spec-item img { /* Ícone SVG/PNG */
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem auto;
+    filter: invert(1); /* Assume ícones pretos */
+}
+.spec-item h4 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--color-primary-orange);
+    margin-bottom: 0.5rem;
+}
+.spec-item p {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #ccc;
+}
+
+/* Specs Detalhadas */
+.specs-detailed-table {
+    max-width: 900px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 100%;
+}
+.specs-detailed-table th {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    text-align: left;
+    padding: 2rem 0;
+    border-bottom: 2px solid var(--color-primary-orange);
+}
+.specs-detailed-table td {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.6rem;
+}
+.specs-detailed-table td:first-child {
+    font-weight: 600;
+    color: #eee;
+    width: 40%;
+}
+.specs-detailed-table td:last-child {
+    font-weight: 300;
+    color: #ccc;
+    width: 60%;
+}
+
+/* =======================
+   4. SEÇÃO GALERIA E VÍDEO
+   ======================== */
+.model-gallery {
+    padding: 8rem 0;
+    background-color: var(--color-white);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-normal);
+}
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Destaque para o vídeo */
+.gallery-item.video-item {
+    grid-column: 1 / span 3; /* Ocupa a linha inteira */
+    height: 500px; /* Altura fixa para o vídeo */
+    background-color: var(--color-black);
+}
+.gallery-item.video-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =======================
+   5. AJUSTES RESPONSIVOS (MODELOS)
+   ======================== */
+@media (max-width: 992px) {
+    .model-hero {
+        grid-template-columns: 1fr; /* Coluna única */
+        min-height: auto;
+    }
+    .model-hero-image {
+        height: 60vh;
+        min-height: 400px;
+        padding: 2rem;
+    }
+    .model-hero-info {
+        padding: 6rem 3rem;
+        text-align: center;
+    }
+    .model-color-swatches, .action-buttons {
+        justify-content: center;
+    }
+
+    .model-nav-sticky {
+        top: 6.5rem; /* Ajuste do header */
+    }
+    .model-nav-links {
+        display: none; /* Simplifica no tablet */
+    }
+    .model-nav-sticky .container {
+        justify-content: center;
+    }
+
+    .specs-summary-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    }
+}
+
+@media (max-width: 768px) {
+    main.model-page {
+        padding-top: 6.5rem; /* Altura do header mobile */
+    }
+    .model-nav-sticky {
+        display: none; /* Remove sub-nav no mobile */
+    }
+
+    .model-hero-image {
+        height: 50vh;
+        min-height: 300px;
+    }
+    .model-hero-info {
+        padding: 4rem 2rem;
+    }
+    .model-title {
+        font-size: 4rem;
+    }
+    .action-buttons {
+        flex-direction: column; /* Botões empilhados */
+    }
+
+    .specs-summary-grid {
+        grid-template-columns: 1fr; /* 1 coluna */
+    }
+    
+    .specs-detailed-table {
+        font-size: 1.4rem;
+    }
+    .specs-detailed-table td:first-child { width: 45%; }
+    .specs-detailed-table td:last-child { width: 55%; }
+
+    .gallery-grid {
+        grid-template-columns: 1fr; /* 1 coluna */
+    }
+    .gallery-item.video-item {
+        height: 300px;
+    }
+}

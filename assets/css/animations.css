@@ -1,0 +1,86 @@
+/*
+ * Arquivo: animations.css
+ * Descrição: Keyframes e classes utilitárias 
+ * para animações de UI.
+ */
+
+/* =======================
+   1. KEYFRAMES
+   ======================== */
+
+/**
+ * Animação 1: Fade In (Surgimento suave)
+ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/**
+ * Animação 2: Fade In Up (Surgimento de baixo para cima)
+ * Usado no banner principal (hero-content)
+ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Animação 3: Bounce (Para a seta de scroll-down)
+ */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+
+/* =======================
+   2. CLASSES UTILITÁRIAS
+   ======================== */
+
+/*
+ * Classe para aplicar a animação "Fade In Up"
+ * Usada no index.html
+ */
+.animate-fade-in-up {
+    /* * Define a animação, mas ela só roda 
+     * se a classe 'visible' for adicionada (via JS)
+     * ou se estiver visível na viewport.
+     *
+     * Para este projeto, vamos manter simples e 
+     * apenas ativar por padrão na carga da página.
+     */
+    
+    animation-name: fadeInUp;
+    animation-duration: 0.8s;
+    animation-fill-mode: both; /* Mantém o estado final */
+    animation-timing-function: ease-out;
+}
+
+/*
+ * Classe para aplicar a animação "Bounce"
+ * Usada no index.html (scroll-down-arrow)
+ */
+.scroll-down-arrow {
+    animation-name: bounce;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
