@@ -65,3 +65,17 @@ Observação: no ambiente local com rede restrita, não é possível validar cha
 - Refino de mensagens/feedback e estados de carregamento.
 - Guarda adicional de navegação por papel (esconder links não permitidos no menu).
 - Scripts de smoke test automatizados (sem rede) para validação de DOM e eventos.
+
+# RELATÓRIO TÉCNICO – Banners (Etapa adicional)
+
+Entregas:
+- `admin/banners.html`: página dedicada ao CRUD de banners, com preview de imagem.
+- `admin/js/banners.js`: CRUD em `banners` com campos `title`, `imageUrl`, `ctaText`, `ctaUrl`, `order`, `published` e `updatedAt`.
+  - Lista em tempo real (onSnapshot) ordenada por `order` e `updatedAt`.
+  - Permissões: Owner/Admin/Editor podem salvar; apenas Owner/Admin excluem.
+- Integração na home pública:
+  - `assets/js/home-dynamic.js`: busca banners publicados e cria/injeta um container `#home-banners` logo após o hero, renderizando cards simples (sem alterar o CSS global). Caso `#home-banners` já exista, renderiza nele.
+
+Validações:
+- Criação/edição/exclusão de banners reflete na home sem recarregar a configuração do site (após reload de página pública).
+- Respeito a papéis para proteger ações.
