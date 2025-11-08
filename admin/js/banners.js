@@ -8,6 +8,14 @@ import {
   query, orderBy, onSnapshot, getDoc, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
+
+// Se a view não existir nesta página, aborta silenciosamente
+const root = document.getElementById('banners-view');
+if (!root) {
+  // Nada a fazer nesta página
+}
+
+if (root) {
 import { getUserRole } from './utils/roles.js';
 import { logAudit } from './audit.js';
 
@@ -147,3 +155,5 @@ onAuthStateChanged(auth, async (user) => {
     renderList(snap.docs);
   });
 });
+
+}

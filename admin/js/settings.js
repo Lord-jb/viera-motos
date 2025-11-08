@@ -5,6 +5,14 @@ import { auth, db } from './modules/firebase.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { getUserRole } from './utils/roles.js';
+
+// Se a view não existir nesta página, aborta silenciosamente
+const settingsRoot = document.getElementById('settings-view');
+if (!settingsRoot) {
+  // Nada a fazer nesta página
+}
+
+if (settingsRoot) {
 import { logAudit } from './audit.js';
 
 const docRef = doc(db, 'settings', 'general');
@@ -111,3 +119,5 @@ onAuthStateChanged(auth, async (user) => {
   }
   await loadSettings();
 });
+
+}
