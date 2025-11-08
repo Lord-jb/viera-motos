@@ -6,9 +6,9 @@ export function initViewRouter() {
   const menu = document.getElementById('admin-sidebar-menu');
   if (!menu) return;
 
-  const views = Array.from(document.querySelectorAll('.view'));
-
   function showView(viewName) {
+    // Recoleta .view a cada chamada (para suportar views injetadas como dashboard)
+    const views = Array.from(document.querySelectorAll('.view'));
     views.forEach(v => {
       v.style.display = (v.id === `${viewName}-view`) ? 'block' : 'none';
     });

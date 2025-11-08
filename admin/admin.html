@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -30,11 +30,11 @@
             <div class="sidebar-header"><h3>Admin Avelloz <small id="user-email" style="font-weight:400;font-size:12px;opacity:.8"></small></h3></div>
             <nav class="sidebar-nav" id="admin-sidebar-menu">
                 <ul>
-                    <li><a href="#" data-section="dashboard"><i class="fas fa-gauge"></i> Dashboard</a></li>
-                    <li><a href="#" data-section="modelos"><i class="fas fa-motorcycle"></i> Modelos</a></li>
-                    <li><a href="#" data-section="leads"><i class="fas fa-inbox"></i> Leads</a></li>
-                    <li><a href="#" data-section="banners"><i class="fas fa-image"></i> Banners</a></li>
-                    <li><a href="#" data-section="settings"><i class="fas fa-gear"></i> ConfiguraÃ§Ãµes</a></li>
+                    <li><a href="#" data-view="dashboard"><i class="fas fa-gauge"></i> Dashboard</a></li>
+                    <li><a href="#" data-view="models"><i class="fas fa-motorcycle"></i> Modelos</a></li>
+                    <li><a href="#" data-view="leads"><i class="fas fa-inbox"></i> Leads</a></li>
+                    <li><a href="#" data-view="banners"><i class="fas fa-image"></i> Banners</a></li>
+                    <li><a href="#" data-view="settings"><i class="fas fa-gear"></i> Configurações</a></li>
                     <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
             </nav>
@@ -104,24 +104,24 @@
                     </div>
                 </div>
             </div>
-                        <!-- BANNERS (coleÃ§Ã£o) -->
+                        <!-- BANNERS (coleção) -->
             <div class="view" id="banners-view" style="display:none;">
                 <h2>Banners (Home)</h2>
                 <div class="content-card">
                   <h3>Novo/Editar Banner</h3>
                   <form id="banner-form">
                     <div class="form-grid">
-                      <div class="form-group"><label for="b-title">TÃ­tulo</label><input id="b-title" required /></div>
+                      <div class="form-group"><label for="b-title">Título</label><input id="b-title" required /></div>
                       <div class="form-group"><label for="b-image">Imagem (URL)</label><input id="b-image" type="url" placeholder="https://..." /></div>
                       <div class="form-group"><label for="b-cta-text">CTA (texto)</label><input id="b-cta-text" placeholder="Ex.: Saiba mais" /></div>
                       <div class="form-group"><label for="b-cta-url">CTA (URL)</label><input id="b-cta-url" type="url" placeholder="https://..." /></div>
                       <div class="form-group"><label for="b-order">Ordem</label><input id="b-order" type="number" min="0" value="0" /></div>
-                      <div class="form-group"><label for="b-published">Publicado</label><select id="b-published"><option value="true">Sim</option><option value="false">NÃ£o</option></select></div>
+                      <div class="form-group"><label for="b-published">Publicado</label><select id="b-published"><option value="true">Sim</option><option value="false">Não</option></select></div>
                     </div>
                     <div style="margin-top:1rem;display:flex;gap:2rem;align-items:center;">
                       <div><img id="b-preview" alt="Preview" style="width:320px;max-width:100%;height:auto;display:none;border-radius:6px;border:1px solid var(--color-border);background:#000;"></div>
                       <div class="form-actions">
-                        <button type="submit" id="btn-save" class="btn-submit">Salvar</button>
+                        <button type="submit" id="b-save" class="btn-submit">Salvar</button>
                         <button type="button" id="btn-new" class="btn-secondary">Novo</button>
                         <button type="button" id="btn-delete" class="btn-secondary" style="background:#eee;">Excluir</button>
                         <p id="b-feedback" class="form-feedback"></p>
@@ -137,13 +137,13 @@
 
             <!-- SETTINGS -->
             <div class="view" id="settings-view" style="display:none;">
-                <h2>ConfiguraÃ§Ãµes Gerais</h2>
+                <h2>Configurações Gerais</h2>
                 <div class="content-card">
-                  <h3>InformaÃ§Ãµes BÃ¡sicas</h3>
+                  <h3>Informações Básicas</h3>
                   <form id="settings-form">
                     <div class="form-grid">
-                      <div class="form-group"><label for="s-title">TÃ­tulo do Site</label><input id="s-title" placeholder="Ex.: Viera Moto Center â€“ Avelloz" /></div>
-                      <div class="form-group form-group-full"><label for="s-description">DescriÃ§Ã£o</label><textarea id="s-description" rows="3" placeholder="Breve descriÃ§Ã£o para SEO e metadados."></textarea></div>
+                      <div class="form-group"><label for="s-title">Título do Site</label><input id="s-title" placeholder="Ex.: Viera Moto Center – Avelloz" /></div>
+                      <div class="form-group form-group-full"><label for="s-description">Descrição</label><textarea id="s-description" rows="3" placeholder="Breve descrição para SEO e metadados."></textarea></div>
                     </div>
                     <hr>
                     <h3>Redes Sociais</h3>
@@ -158,14 +158,14 @@
                     <div class="form-grid">
                       <div class="form-group"><label for="s-email">Email</label><input id="s-email" type="email" placeholder="contato@exemplo.com" /></div>
                       <div class="form-group"><label for="s-phone">Telefone</label><input id="s-phone" type="tel" placeholder="(xx) xxxxx-xxxx" /></div>
-                      <div class="form-group form-group-full"><label for="s-address">EndereÃ§o</label><input id="s-address" placeholder="Rua, nÂº, bairro, cidade" /></div>
-                      <div class="form-group"><label for="s-whatsapp">WhatsApp</label><input id="s-whatsapp" placeholder="55DDDNÃšMERO (somente dÃ­gitos)" /></div>
+                      <div class="form-group form-group-full"><label for="s-address">Endereço</label><input id="s-address" placeholder="Rua, nº, bairro, cidade" /></div>
+                      <div class="form-group"><label for="s-whatsapp">WhatsApp</label><input id="s-whatsapp" placeholder="55DDDNÚMERO (somente dígitos)" /></div>
                     </div>
                     <hr>
                     <h3>Cores da Marca</h3>
                     <div class="form-grid" style="grid-template-columns: repeat(4, 1fr);">
-                      <div class="form-group"><label for="c-primary">PrimÃ¡ria</label><input id="c-primary" type="color" value="#0D1B2A" /></div>
-                      <div class="form-group"><label for="c-secondary">SecundÃ¡ria</label><input id="c-secondary" type="color" value="#FF6F00" /></div>
+                      <div class="form-group"><label for="c-primary">Primária</label><input id="c-primary" type="color" value="#0D1B2A" /></div>
+                      <div class="form-group"><label for="c-secondary">Secundária</label><input id="c-secondary" type="color" value="#FF6F00" /></div>
                       <div class="form-group"><label for="c-dark">Escura</label><input id="c-dark" type="color" value="#0D1B2A" /></div>
                       <div class="form-group"><label for="c-light">Clara</label><input id="c-light" type="color" value="#F4F4F4" /></div>
                     </div>
@@ -192,8 +192,8 @@
                             <thead>
                                 <tr>
                                     <th>Data</th>
-                                    <th>UsuÃ¡rio</th>
-                                    <th>AÃ§Ã£o</th>
+                                    <th>Usuário</th>
+                                    <th>Ação</th>
                                     <th>Alvo</th>
                                 </tr>
                             </thead>
@@ -203,12 +203,14 @@
                 </div>
             </div></main></div>
 
-    <!-- ProteÃ§Ã£o de sessÃ£o para pÃ¡ginas do admin -->
+    <!-- Proteção de sessão para páginas do admin -->
     
     <!-- ES Modules: App admin modular -->
     
-    <!-- Logout handler (opcional, caso use o botÃ£o sair) -->
+    <!-- Logout handler (opcional, caso use o botão sair) -->
     <script type="module" src="admin.js?v=20251108"></script>`r`n</html>
+
+
 
 
 
