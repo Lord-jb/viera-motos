@@ -8,13 +8,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-    <!-- Tela de Login -->
     <div id="login-screen" class="login-container">
       <div class="login-box">
+        
+        <svg class="admin-logo" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM10.6783 15.8443L7.15575 12.3217C6.86286 12.0288 6.86286 11.554 7.15575 11.2611L8.21658 10.2002C8.50947 9.90733 8.98431 9.90733 9.2772 10.2002L11.2087 12.1317L14.7228 8.61756C15.0157 8.32467 15.4905 8.32467 15.7834 8.61756L16.8443 9.67839C17.1371 9.97128 17.1371 10.4461 16.8443 10.739L11.739 15.8443C11.4461 16.1371 10.9713 16.1371 10.6783 15.8443Z" fill="#f36523"/>
+        </svg>
+
         <h2>Acesso ao Painel</h2>
         <p>Faça login para continuar.</p>
         <form id="login-form">
@@ -26,13 +30,12 @@
             <label for="login-password">Senha</label>
             <input type="password" id="login-password" required />
           </div>
-          <button type="submit" class="btn btn-primary">Entrar</button>
+          <button type="submit" class="btn-submit">Entrar</button>
           <div id="login-error" class="error-message"></div>
         </form>
       </div>
     </div>
 
-    <!-- Painel de Admin -->
     <div id="admin-panel" style="display:none">
         
         <aside id="sidebar" class="sidebar">
@@ -42,35 +45,74 @@
             </div>
             <nav class="sidebar-nav" id="admin-sidebar-menu">
                 <ul>
-                    <li><a href="#" data-view="dashboard" data-view-title="Dashboard"><i class="fas fa-gauge"></i> Dashboard</a></li>
-                    <li><a href="#" data-view="models" data-view-title="Gerenciar Modelos"><i class="fas fa-motorcycle"></i> Modelos</a></li>
-                    <li><a href="#" data-view="leads" data-view-title="Leads Recebidos"><i class="fas fa-inbox"></i> Leads</a></li>
-                    <li><a href="#" data-view="banners" data-view-title="Gerenciar Banners"><i class="fas fa-image"></i> Banners</a></li>
-                    <li><a href="#" data-view="settings" data-view-title="Configurações"><i class="fas fa-gear"></i> Configurações</a></li>
-                    <li><a href="#" data-view="audit" data-view-title="Logs de Auditoria"><i class="fas fa-shield-halved"></i> Auditoria</a></li>
-                    <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                    <li><a href="#" data-view="dashboard" data-view-title="Dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+                    <li><a href="#" data-view="models" data-view-title="Gerenciar Modelos"><i class="fa-solid fa-motorcycle"></i> Modelos</a></li>
+                    <li><a href="#" data-view="leads" data-view-title="Leads Recebidos"><i class="fa-solid fa-inbox"></i> Leads</a></li>
+                    <li><a href="#" data-view="banners" data-view-title="Gerenciar Banners"><i class="fa-solid fa-image"></i> Banners</a></li>
+                    <li><a href="#" data-view="settings" data-view-title="Configurações"><i class="fa-solid fa-gears"></i> Configurações</a></li>
+                    <li><a href="#" data-view="audit" data-view-title="Logs de Auditoria"><i class="fa-solid fa-shield-halved"></i> Auditoria</a></li>
+                    <li><a href="#" id="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
                 </ul>
             </nav>
         </aside>
 
-        <div id="sidebar-backdrop"></div>
+        <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
         <main id="content-area" class="main-content">
             <header class="admin-topbar">
                 <button id="sidebar-toggle" class="icon-button" aria-label="Alternar menu">
-                    <i class="fas fa-bars"></i>
+                    <i class="fa-solid fa-bars"></i>
                 </button>
                 <h2 id="view-title" class="topbar-title">Dashboard</h2>
             </header>
             
             <div class="view-container">
+                
                 <div class="view" id="dashboard-view">
                     <h2>Dashboard</h2>
-                    <p>Bem-vindo ao painel de administração.</p>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Leads (Test-Ride)</div>
+                            <div class="metric-value" id="metric-test-rides">--</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Leads (Consórcio)</div>
+                            <div class="metric-value" id="metric-queries">--</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Modelos Ativos</div>
+                            <div class="metric-value" id="metric-models">--</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Visitas (Hoje)</div>
+                            <div class="metric-value">--</div>
+                        </div>
+                    </div>
+
+                    <div class="activity-feed">
+                        <h3>Atividade Recente</h3>
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background-color: #e0fdef;"><i class="fa-solid fa-user-plus" style="color: #1a7f53;"></i></div>
+                            <div class="activity-text">Novo lead de Test-Ride: <strong>João Silva</strong>.</div>
+                            <div class="activity-time">agora</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background-color: #e0fdef;"><i class="fa-solid fa-user-plus" style="color: #1a7f53;"></i></div>
+                            <div class="activity-text">Novo lead de Consórcio: <strong>Maria Oliveira</strong>.</div>
+                            <div class="activity-time">15 min atrás</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon" style="background-color: #e6f3ff;"><i class="fa-solid fa-motorcycle" style="color: #0060c0;"></i></div>
+                            <div class="activity-text">Modelo <strong>AZ1</strong> foi atualizado.</div>
+                            <div class="activity-time">1h atrás</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="view" id="models-view">
-                    <!-- O conteúdo de Gerenciar Modelos será inserido aqui pelo JS -->
+                    <h2>Gerenciar Modelos</h2>
+                    <p>O JavaScript irá popular esta área. (Ex: formulário de cadastro/edição de modelos).</p>
                 </div>
 
                 <div class="view" id="leads-view">
@@ -92,7 +134,8 @@
                                         <th>Data</th>
                                     </tr>
                                 </thead>
-                                <tbody id="test-rides-tbody"></tbody>
+                                <tbody id="test-rides-tbody">
+                                    </tbody>
                             </table>
                         </div>
                     </div>
@@ -109,7 +152,8 @@
                                         <th>Mensagem</th>
                                     </tr>
                                 </thead>
-                                <tbody id="order-queries-tbody"></tbody>
+                                <tbody id="order-queries-tbody">
+                                    </tbody>
                             </table>
                         </div>
                     </div>

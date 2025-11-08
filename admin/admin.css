@@ -1,25 +1,42 @@
 /*
  * Arquivo: admin.css
  * Descrição: Estilos para o painel de administração (admin.html).
- * Versão: Refatorada e Limpa
+ * Versão: Moderna e Reestilizada
  */
 
 /* =======================
    1. RESET E GLOBAIS
    ======================== */
 :root {
-    /* Variáveis consolidadas */
-    --color-primary-dark: #0D1B2A;
-    --color-primary-orange: #f36523; /* Cor correta da Avelloz */
+    /* Cores */
+    --color-primary-orange: #f36523;
+    --color-primary-orange-light: #fff5ee;
+    --color-primary-dark: #1a2634;
     --color-white: #FFFFFF;
-    --color-surface: #FFFFFF; /* Fundo de cards e views */
-    --color-background-light: #F4F7FA; /* Fundo do painel */
-    --color-text-dark: #333;
-    --color-border: #DDE;
-    --color-success: #28a745;
-    --color-danger: #dc3545;
-    --color-sidebar-bg: #1a2634; /* Cor da sidebar movida para var */
+    --color-success: #1a7f53;
+    --color-danger: #d94343;
+    --color-danger-light: #fef2f2;
+    --color-sidebar-bg: #1a2634;
+    
+    /* UI Neutras */
+    --color-background-light: #f8f9fa; /* Fundo do painel */
+    --color-surface: #FFFFFF;       /* Fundo de cards e views */
+    --color-border: #e9ecef;        /* Bordas sutis */
+    --color-input-bg: #f1f3f5;      /* Fundo de inputs */
+
+    /* Texto */
+    --color-text-dark: #212529;
+    --color-text-muted: #6c757d;
+    --color-text-light: #f8f9fa;
+
+    /* Fontes e Sombras */
     --font-family-main: 'Montserrat', 'Arial', sans-serif;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
 }
 
 /* Base 10px para 'rem' (1.6rem = 16px) */
@@ -45,11 +62,14 @@ body {
 /* Dark mode variables */
 .theme-dark {
     --color-background-light: #0f141b;
-    --color-text-dark: #e5e7eb;
-    --color-white: #0f1720;
     --color-surface: #111a25;
     --color-border: #223142;
-    --color-sidebar-bg: #0f141b;
+    --color-input-bg: #1c2a3a;
+    --color-text-dark: #e5e7eb;
+    --color-text-muted: #9da9b8;
+    --color-sidebar-bg: #111a25;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 }
 
 /* =======================
@@ -62,6 +82,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    background-color: var(--color-background-light);
 }
 
 .login-box {
@@ -69,24 +90,25 @@ body {
     max-width: 400px;
     padding: 4rem;
     background-color: var(--color-surface);
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
     text-align: center;
 }
 
 .admin-logo {
-    width: 150px;
+    width: 60px;
+    height: 60px;
     margin-bottom: 2rem;
-    filter: invert(10%) brightness(0.8);
 }
 
 .login-box h2 {
-    color: var(--color-primary-dark);
+    color: var(--color-text-dark);
     margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
 .login-box p {
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 2.5rem;
     font-size: 1.4rem;
 }
@@ -105,79 +127,119 @@ form {
 
 .form-group label {
     display: block;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
     font-size: 1.4rem;
+    color: var(--color-text-dark);
 }
 
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="file"],
-.form-group textarea {
+.form-group input[type="url"],
+.form-group input[type="number"],
+.form-group input[type="tel"],
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 1.2rem;
     font-size: 1.5rem;
     border: 1px solid var(--color-border);
-    border-radius: 5px;
+    border-radius: var(--radius-md);
     font-family: var(--font-family-main);
     transition: border-color 0.2s, box-shadow 0.2s;
-    background-color: var(--color-surface);
+    background-color: var(--color-input-bg);
     color: var(--color-text-dark);
 }
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
+    background-color: var(--color-surface);
     border-color: var(--color-primary-orange);
-    box-shadow: 0 0 0 2px rgba(243, 101, 35, 0.2);
+    box-shadow: 0 0 0 3px rgba(243, 101, 35, 0.1);
 }
 
-.form-group.checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-.form-group.checkbox-group input {
-    width: auto;
+/* Inputs de Cor */
+.form-group input[type="color"] {
+    padding: 0.5rem;
+    height: 4.8rem; /* Altura igual aos outros inputs */
+    border-radius: var(--radius-md);
 }
 
 .error-message {
     color: var(--color-danger);
     font-size: 1.4rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: center;
 }
 
-/* Botões */
+/* Layout de Grid para Formulários (Banners, Configs) */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 2.5rem 0;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+}
+.form-feedback {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* =======================
+   4. BOTÕES
+   ======================== */
 .btn-submit {
-    width: 100%;
-    padding: 1.5rem;
-    font-size: 1.6rem;
+    padding: 1.2rem 2.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--color-white);
-    background: linear-gradient(135deg, #FF7A1A 0%, var(--color-primary-orange) 100%);
+    background: var(--color-primary-orange);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: transform 0.08s ease, filter 0.2s, box-shadow 0.2s;
+    transition: transform 0.1s ease, filter 0.2s, box-shadow 0.2s;
 }
 .btn-submit:hover {
+    filter: brightness(1.1);
+}
+.btn-submit:active { 
+    transform: translateY(1px); 
     filter: brightness(1.05);
 }
-.btn-submit:active { transform: translateY(1px); }
 
 .btn-secondary {
-    padding: 0.8rem 1.2rem;
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--color-primary-dark);
-    background-color: #eee;
-    border: none;
-    border-radius: 5px;
+    padding: 1.2rem 2.4rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     cursor: pointer;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 .btn-secondary:hover {
-    background-color: #ddd;
+    background-color: #e9ecef; /* Um pouco mais escuro que o --color-input-bg */
+}
+.theme-dark .btn-secondary:hover {
+    background-color: var(--color-border);
 }
 
 /* Foco visível para Acessibilidade */
@@ -191,11 +253,11 @@ form {
 
 
 /* =======================
-   4. PAINEL DE ADMIN (Layout Principal)
+   5. PAINEL DE ADMIN (Layout Principal)
    ======================== */
 #admin-panel {
     display: none; /* JS irá mostrar */
-    flex-direction: row; /* Alterado de 'column' para layout sidebar+main */
+    flex-direction: row;
     min-height: 100vh;
 }
 
@@ -203,36 +265,38 @@ form {
 .sidebar {
     width: 260px;
     background: var(--color-sidebar-bg);
-    color: #fff;
-    padding: 20px;
+    color: var(--color-text-light);
+    padding: 2rem;
     position: sticky;
     top: 0;
     height: 100vh;
     overflow-y: auto;
-    box-shadow: 2px 0 16px rgba(0,0,0,.08);
+    box-shadow: var(--shadow-md);
     transform: translateX(0);
-    transition: transform .25s ease;
+    transition: transform .25s ease-in-out;
     z-index: 1000;
 }
 
 /* Scrollbar sutil */
 .sidebar::-webkit-scrollbar { width: 6px; }
-.sidebar::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
 .sidebar::-webkit-scrollbar-track { background: transparent; }
-
 
 .sidebar-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
 }
 .sidebar-header h3 {
     color: var(--color-primary-orange);
-    font-size: 24px;
+    font-size: 2.4rem;
+    font-weight: 700;
     margin-bottom: 5px;
 }
 .sidebar-header small {
     font-size: 1.2rem;
     opacity: 0.7;
+    word-break: break-all;
 }
 
 .sidebar-nav ul {
@@ -240,30 +304,34 @@ form {
     padding: 0;
     margin: 0;
 }
-
 .sidebar-nav li {
-    margin-bottom: 10px;
+    margin-bottom: 0.5rem;
 }
-
 .sidebar-nav a {
-    display: block;
-    padding: 12px 15px;
-    color: white;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    color: var(--color-text-light);
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    font-weight: 600;
+    font-size: 1.5rem;
 }
-
-.sidebar-nav a:hover,
-.sidebar-nav a.active-view { /* Classe para o JS adicionar */
+.sidebar-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.sidebar-nav a.active-view {
     background-color: var(--color-primary-orange);
     color: var(--color-white);
+    box-shadow: 0 0 15px rgba(243, 101, 35, 0.3);
 }
 
 .sidebar-nav a i {
-    margin-right: 10px;
+    margin-right: 1.5rem;
     width: 20px;
     text-align: center;
+    font-size: 1.6rem;
 }
 
 /* Estilo do botão Sair */
@@ -284,7 +352,7 @@ form {
 /* --- Conteúdo Principal --- */
 .main-content {
     flex-grow: 1;
-    padding: 30px;
+    padding: 3rem;
     overflow-y: auto;
 }
 
@@ -292,54 +360,55 @@ form {
 .admin-topbar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 1.2rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin-bottom: 20px;
+    border-radius: var(--radius-lg);
+    padding: 1.2rem 2.4rem;
+    margin-bottom: 2.5rem;
     position: sticky;
-    top: 0; /* Gruda no topo do .main-content */
+    top: 0;
     z-index: 900;
+    box-shadow: var(--shadow-sm);
 }
 .topbar-title { 
     font-weight: 700; 
-    opacity: .9; 
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin: 0;
+    color: var(--color-text-dark);
 }
 .topbar-actions { 
     margin-left: auto; 
     display: flex; 
-    gap: 8px; 
+    gap: 0.8rem; 
 }
 .icon-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text-dark);
+    width: 4rem; 
+    height: 4rem;
+    border-radius: var(--radius-md);
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
     cursor: pointer;
+    font-size: 1.8rem;
     transition: background-color 0.2s, color 0.2s;
 }
 .icon-button:hover {
-    background: #f1f1f1;
+    background: var(--color-input-bg);
+    color: var(--color-text-dark);
 }
-.icon-button i { pointer-events: none; }
-
 
 /* --- Views (Cards de Conteúdo) --- */
 .view {
     background-color: var(--color-surface);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     display: none; /* JS controla a exibição */
 }
-/* A view ativa é mostrada */
 .view.active-view {
     display: block;
 }
@@ -347,21 +416,46 @@ form {
 .view h2 {
     color: var(--color-text-dark);
     margin-top: 0;
-    border-bottom: 2px solid var(--color-border);
-    padding-bottom: 15px;
-    margin-bottom: 25px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.view h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+/* Estilos para .content-card (usado em Banners, Settings, etc.) */
+.content-card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+/* Se a view tiver .content-card, removemos o padding/sombra da view */
+.view-container > .view {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+.view-container > .view > h2 {
+    padding-left: 1rem;
 }
 
 
 /* =======================
-   5. ABAS E TABELAS
+   6. ABAS E TABELAS
    ======================== */
 
 /* --- Estilo das Abas (Tabs) --- */
 .tabs {
     overflow: hidden;
     border-bottom: 2px solid var(--color-border);
-    margin-bottom: 25px;
+    margin-bottom: 2.5rem;
 }
 
 .tab-link {
@@ -369,22 +463,18 @@ form {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 20px;
+    padding: 1.4rem 2rem;
     transition: 0.3s;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 600;
-    margin-right: 4px;
-    color: var(--color-text-dark);
-    opacity: 0.7;
+    margin-right: 0.4rem;
+    color: var(--color-text-muted);
     border-bottom: 3px solid transparent;
 }
-
 .tab-link:hover {
-    opacity: 1;
+    color: var(--color-text-dark);
 }
-
 .tab-link.active {
-    opacity: 1;
     color: var(--color-primary-orange);
     border-bottom-color: var(--color-primary-orange);
 }
@@ -397,36 +487,29 @@ form {
 .tab-content.active {
     display: block;
 }
-
-.tab-content h3 {
-    color: #555;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Wrapper da Tabela (para Scroll) --- */
 .table-wrapper {
     width: 100%;
-    overflow-x: auto; /* Adiciona scroll horizontal se a tabela for larga */
+    overflow-x: auto;
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: var(--radius-lg);
 }
 
 /* --- Estilo das Tabelas do Admin --- */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px; /* Garante que a tabela tenha uma largura mínima */
+    min-width: 600px;
 }
 
 .admin-table th,
 .admin-table td {
-    padding: 12px 15px;
+    padding: 1.6rem;
     border-bottom: 1px solid var(--color-border);
     text-align: left;
     color: var(--color-text-dark);
@@ -434,18 +517,27 @@ form {
 }
 
 .admin-table th {
-    background-color: #f9f9f9;
+    background-color: var(--color-background-light);
     font-weight: 600;
-    color: #333;
-    border-top: none;
+    color: var(--color-text-muted);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-/* Aplicando vars de dark mode na tabela */
 .theme-dark .admin-table th {
     background-color: #1a2634;
 }
 
+/* Zebra Striping */
+.admin-table tbody tr:nth-child(even) {
+    background-color: var(--color-background-light);
+}
+.theme-dark .admin-table tbody tr:nth-child(even) {
+    background-color: rgba(34, 49, 66, 0.5);
+}
+
 .admin-table tbody tr:hover {
-    background-color: #f5f5f5;
+    background-color: var(--color-primary-orange-light);
 }
 .theme-dark .admin-table tbody tr:hover {
     background-color: #223142;
@@ -456,32 +548,81 @@ form {
 }
 
 /* =======================
-   6. ITENS DE DASHBOARD (Ex: Métricas)
+   7. DASHBOARD (Métricas e Atividade)
    ======================== */
 .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
 }
 .metric-card { 
     background: var(--color-surface); 
     border: 1px solid var(--color-border); 
-    border-radius: 10px; 
-    padding: 16px; 
+    border-radius: var(--radius-lg); 
+    padding: 2.4rem;
+    box-shadow: var(--shadow-sm);
 }
 .metric-label { 
-    opacity: .7; 
-    font-size: 1.2rem; 
+    color: var(--color-text-muted);
+    font-size: 1.4rem; 
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 .metric-value { 
-    font-size: 2.8rem; 
+    font-size: 3.2rem; 
     font-weight: 800;
     color: var(--color-primary-orange);
+    line-height: 1.2;
+}
+
+/* Feed de Atividade */
+.activity-feed {
+    margin-top: 4rem;
+}
+.activity-feed h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+.activity-item:last-child {
+    border-bottom: none;
+}
+.activity-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+.activity-text {
+    flex-grow: 1;
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+}
+.activity-text strong {
+    color: var(--color-text-dark);
+    font-weight: 600;
+}
+.activity-time {
+    font-size: 1.3rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
 }
 
 
 /* =======================
-   7. RESPONSIVIDADE (MOBILE)
+   8. RESPONSIVIDADE (MOBILE)
    ======================== */
 .sidebar-backdrop { 
     position: fixed; 
@@ -506,21 +647,35 @@ form {
       transform: translateX(0); 
     }
   .main-content {
-      padding: 15px;
+      padding: 1.5rem;
+  }
+  .form-grid {
+      grid-template-columns: 1fr; /* Coluna única em mobile */
+  }
+  .admin-topbar {
+      padding: 1.2rem 1.5rem;
+  }
+  .view, .content-card {
+      padding: 2rem;
   }
 }
 
 @media (max-width: 768px) {
+    html {
+        font-size: 56.25%; /* 9px base */
+    }
+    
     /* Login */
     .login-box {
         padding: 2.5rem;
+        box-shadow: none;
+        border: 1px solid var(--color-border);
     }
     
     /* Tabelas */
     .admin-table th,
     .admin-table td {
-        padding: 8px 10px;
-        font-size: 1.3rem;
+        padding: 1.2rem 1rem;
     }
     
     /* Topbar */
@@ -528,24 +683,26 @@ form {
         font-size: 1.8rem;
     }
     .main-content {
-        padding-top: 80px; /* Garante espaço para o topbar fixo */
+        padding-top: 8rem; /* Garante espaço para o topbar fixo */
     }
     .admin-topbar {
         top: 0;
         left: 0;
         width: 100%;
         border-radius: 0;
-        padding: 12px 15px;
-        position: fixed; /* Fixa o topbar no mobile */
+        padding: 1.2rem 1.5rem;
+        position: fixed;
         margin-bottom: 0;
+        border-left: none;
+        border-right: none;
     }
     
-    /* View */
-    .view {
-        padding: 15px;
+    /* Views */
+    .view, .content-card {
+        padding: 1.5rem;
     }
     .view h2 {
-        font-size: 2rem;
-        margin-bottom: 15px;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
     }
 }
