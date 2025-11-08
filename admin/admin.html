@@ -111,16 +111,113 @@
                     </div>
                 </div>
             </div>
-            </main>
-    </div>
+                        <!-- BANNERS (coleção) -->
+            <div class="view" id="banners-view" style="display:none;">
+                <h2>Banners (Home)</h2>
+                <div class="content-card">
+                  <h3>Novo/Editar Banner</h3>
+                  <form id="banner-form">
+                    <div class="form-grid">
+                      <div class="form-group"><label for="b-title">Título</label><input id="b-title" required /></div>
+                      <div class="form-group"><label for="b-image">Imagem (URL)</label><input id="b-image" type="url" placeholder="https://..." /></div>
+                      <div class="form-group"><label for="b-cta-text">CTA (texto)</label><input id="b-cta-text" placeholder="Ex.: Saiba mais" /></div>
+                      <div class="form-group"><label for="b-cta-url">CTA (URL)</label><input id="b-cta-url" type="url" placeholder="https://..." /></div>
+                      <div class="form-group"><label for="b-order">Ordem</label><input id="b-order" type="number" min="0" value="0" /></div>
+                      <div class="form-group"><label for="b-published">Publicado</label><select id="b-published"><option value="true">Sim</option><option value="false">Não</option></select></div>
+                    </div>
+                    <div style="margin-top:1rem;display:flex;gap:2rem;align-items:center;">
+                      <div><img id="b-preview" alt="Preview" style="width:320px;max-width:100%;height:auto;display:none;border-radius:6px;border:1px solid var(--color-border);background:#000;"></div>
+                      <div class="form-actions">
+                        <button type="submit" id="btn-save" class="btn-submit">Salvar</button>
+                        <button type="button" id="btn-new" class="btn-secondary">Novo</button>
+                        <button type="button" id="btn-delete" class="btn-secondary" style="background:#eee;">Excluir</button>
+                        <p id="b-feedback" class="form-feedback"></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="content-card">
+                  <h3>Lista de Banners</h3>
+                  <div id="banners-list"></div>
+                </div>
+            </div>
+
+            <!-- SETTINGS -->
+            <div class="view" id="settings-view" style="display:none;">
+                <h2>Configurações Gerais</h2>
+                <div class="content-card">
+                  <h3>Informações Básicas</h3>
+                  <form id="settings-form">
+                    <div class="form-grid">
+                      <div class="form-group"><label for="s-title">Título do Site</label><input id="s-title" placeholder="Ex.: Viera Moto Center – Avelloz" /></div>
+                      <div class="form-group form-group-full"><label for="s-description">Descrição</label><textarea id="s-description" rows="3" placeholder="Breve descrição para SEO e metadados."></textarea></div>
+                    </div>
+                    <hr>
+                    <h3>Redes Sociais</h3>
+                    <div class="form-grid">
+                      <div class="form-group"><label for="s-instagram">Instagram</label><input id="s-instagram" type="url" placeholder="https://instagram.com/..." /></div>
+                      <div class="form-group"><label for="s-facebook">Facebook</label><input id="s-facebook" type="url" placeholder="https://facebook.com/..." /></div>
+                      <div class="form-group"><label for="s-youtube">YouTube</label><input id="s-youtube" type="url" placeholder="https://youtube.com/..." /></div>
+                      <div class="form-group"><label for="s-tiktok">TikTok</label><input id="s-tiktok" type="url" placeholder="https://tiktok.com/@..." /></div>
+                    </div>
+                    <hr>
+                    <h3>Contatos</h3>
+                    <div class="form-grid">
+                      <div class="form-group"><label for="s-email">Email</label><input id="s-email" type="email" placeholder="contato@exemplo.com" /></div>
+                      <div class="form-group"><label for="s-phone">Telefone</label><input id="s-phone" type="tel" placeholder="(xx) xxxxx-xxxx" /></div>
+                      <div class="form-group form-group-full"><label for="s-address">Endereço</label><input id="s-address" placeholder="Rua, nº, bairro, cidade" /></div>
+                      <div class="form-group"><label for="s-whatsapp">WhatsApp</label><input id="s-whatsapp" placeholder="55DDDNÚMERO (somente dígitos)" /></div>
+                    </div>
+                    <hr>
+                    <h3>Cores da Marca</h3>
+                    <div class="form-grid" style="grid-template-columns: repeat(4, 1fr);">
+                      <div class="form-group"><label for="c-primary">Primária</label><input id="c-primary" type="color" value="#0D1B2A" /></div>
+                      <div class="form-group"><label for="c-secondary">Secundária</label><input id="c-secondary" type="color" value="#FF6F00" /></div>
+                      <div class="form-group"><label for="c-dark">Escura</label><input id="c-dark" type="color" value="#0D1B2A" /></div>
+                      <div class="form-group"><label for="c-light">Clara</label><input id="c-light" type="color" value="#F4F4F4" /></div>
+                    </div>
+                    <div class="form-actions" style="margin-top:1.6rem;">
+                      <button type="submit" id="btn-save" class="btn-submit">Salvar</button>
+                      <button type="button" id="btn-reset" class="btn-secondary">Recarregar</button>
+                      <p id="settings-feedback" class="form-feedback"></p>
+                    </div>
+                  </form>
+                </div>
+            </div>
+
+            <!-- AUDITORIA -->
+            <div class="view" id="audit-view" style="display:none;">
+                <h2>Logs de Auditoria</h2>
+                <div class="content-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div style="font-size:1.4rem;color:#666;">Total: <span id="audit-count">0</span></div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="table-wrapper">
+                        <table class="admin-table" id="audit-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Usuário</th>
+                                    <th>Ação</th>
+                                    <th>Alvo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div></main></div>
 
     <!-- Proteção de sessão para páginas do admin -->
     <script type="module" src="js/auth/guard.js"></script>
     <!-- ES Modules: App admin modular -->
     <script type="module" src="js/app.js"></script>
     <!-- Logout handler (opcional, caso use o botão sair) -->
-    <script type="module" src="js/auth/logout.js"></script>\r\n    <script type="module" src="js/banners.js"></script>\r\n    <script type="module" src="js/settings.js"></script>\r\n    <script type="module" src="js/audit.js"></script>\r\n</body>
 </html>
+
+
 
 
 
