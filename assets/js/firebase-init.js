@@ -2,6 +2,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { getStorage } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-storage.js';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app-check.js';
 
 // Config do projeto (mesma usada no admin)
 const firebaseConfig = {
@@ -17,5 +18,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// App Check (reCAPTCHA v3)
+try {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6Lf4PAcsAAAAANFK-86nYM6m_VU7CfR5KEhWwfQb'),
+    isTokenAutoRefreshEnabled: true
+  });
+} catch (_) {}
 
 console.log('Firebase (v9 modular) inicializado para o site público.');

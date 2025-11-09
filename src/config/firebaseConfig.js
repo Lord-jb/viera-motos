@@ -7,6 +7,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
 import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app-check.js';
 
 // Configuração do projeto (v9 modular)
 export const firebaseConfig = {
@@ -29,3 +30,10 @@ const db = getFirestore(app);
 // Exports principais do módulo
 export { app, auth, db };
 
+// App Check (reCAPTCHA v3)
+try {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6Lf4PAcsAAAAANFK-86nYM6m_VU7CfR5KEhWwfQb'),
+    isTokenAutoRefreshEnabled: true
+  });
+} catch (_) {}
