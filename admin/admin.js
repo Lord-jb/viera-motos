@@ -2,8 +2,9 @@
 // MantÃ©m login + guarda + montagem de todas as views no admin.html
 
 import { auth, db } from './js/modules/firebase.js';
+import { showToast } from './toast-notify.js';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js';
-import { collection, getDocs, addDoc, setDoc, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+import { collection, getDocs, addDoc, setDoc, doc, deleteDoc, query, where, Timestamp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 import { getUserRole, Roles } from './js/utils/roles.js';
 import { initViewRouter } from './js/modules/router.js';
 import { mountCatalogFeature } from './js/modules/catalog.js';
@@ -17,6 +18,8 @@ function show(el, display = 'block') { if (el) el.style.display = display; }
 function hide(el) { if (el) el.style.display = 'none'; }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // expõe toast globalmente para módulos
+  try { window.showToast = showToast; } catch(_){}
   const loginSection = document.getElementById('login-screen');
   const adminPanel = document.getElementById('admin-panel');
   const emailEl = document.getElementById('user-email');
@@ -95,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let view = dv || ds || '';
       if (view === 'modelos') view = 'models'; // normaliza PT->EN
       if (typeof router.showView === 'function') router.showView(view);
+      if (view === 'dashboard') { try { renderLeadsChart(); } catch(_){} }
     });
   }
 
@@ -154,6 +158,66 @@ document.addEventListener('DOMContentLoaded', () => {
       set('orderQueries', map['orderQueries'] ?? '-');
     } catch (_) { /* noop */ }
   }
+
+  // Gráfico de leads (últimos 7 dias)
+  async function renderLeadsChart() {
+    const canvas = document.getElementById('leadsChart');
+    if (!canvas || typeof Chart === 'undefined') return;
+    const ctx = canvas.getContext('2d');
+
+    const seven = new Date();
+    seven.setDate(seven.getDate() - 6); // inclui hoje
+    const sevenTs = Timestamp.fromDate(new Date(seven.getFullYear(), seven.getMonth(), seven.getDate(), 0,0,0));
+
+    const labels = [];
+    const dataCounts = {};
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const label = d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+      labels.push(label);
+      dataCounts[label] = 0;
+    }
+
+    const collectionsToFetch = [ ['testRides','createdAt'], ['orderQueries','createdAt'] ];
+    for (const [collName, field] of collectionsToFetch) {
+      try {
+        const q = query(collection(db, collName), where(field, '>=', sevenTs));
+        const snap = await getDocs(q);
+        snap.forEach(docSnap => {
+          const d = (docSnap.data()||{})[field];
+          if (d && typeof d.toDate === 'function') {
+            const dt = d.toDate();
+            const label = dt.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+            if (dataCounts[label] != null) dataCounts[label] += 1;
+          }
+        });
+      } catch (_) {}
+    }
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Novos Leads por Dia',
+          data: Object.values(dataCounts),
+          backgroundColor: 'rgba(0,123,255,0.12)',
+          borderColor: 'rgba(0,123,255,1)',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        }
+      }
+    });
+  }
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
       hide(adminPanel); show(loginSection, 'flex');
@@ -206,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Força dashboard como primeira seção visível
     ensureDashboardView();
     try { await mountDashboard(); } catch(_){}
+    try { await renderLeadsChart(); } catch(_){}
     if (router && document.getElementById('dashboard-view')) router.showView('dashboard');
   });
 

@@ -1,3 +1,6 @@
+import { db } from './firebase-init.js';
+import { collection, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
+
 /*
  * Test-Drive: popula o select com modelos e envia solicitação para Firestore
  */
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const preModel = params.get('model');
 
   // Carrega modelos
-  firestore.collection('models').get()
+  getDocs(collection(db, 'models'))
     .then(snap => {
       const items = [];
       snap.forEach(doc => items.push({ id: doc.id, ...(doc.data()||{}) }));
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       date: document.getElementById('tr-date').value || null,
       time: document.getElementById('tr-time').value || null,
       notes: document.getElementById('tr-notes').value.trim() || null,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: serverTimestamp(),
       userAgent: navigator.userAgent
     };
 
@@ -74,8 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
           message: data.notes,
         });
       } else {
-        const col = firestore.collection('testRides');
-        ref = await col.add(data);
+        ref = await addDoc(collection(db, 'testRides'), data);
       }
       feedback.textContent = 'Solicitação enviada com sucesso! Entraremos em contato.';
       feedback.style.color = 'green';
@@ -108,3 +110,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+

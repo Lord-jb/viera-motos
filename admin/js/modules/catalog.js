@@ -59,6 +59,87 @@ export function mountCatalogFeature(role) {
   const feedback = container.querySelector('#model-feedback');
   const list = container.querySelector('#current-models-list');
 
+  // Insere área de Drag-and-Drop para imagem principal logo após a tagline
+  try {
+    const taglineGroup = form.querySelector('#model-tagline')?.closest('.form-group');
+    if (taglineGroup) {
+      taglineGroup.insertAdjacentHTML('afterend', `
+        <div class="form-group">
+          <label>Imagem principal</label>
+          <div class="drop-zone" id="dropZoneMoto">
+            <span class="drop-zone-prompt">Arraste e solte a imagem da moto aqui<br>ou clique para selecionar</span>
+            <img src="" alt="Pré-visualização" class="drop-zone-preview" id="previewMoto">
+            <input type="file" id="imagemMoto" name="imagemMoto" class="drop-zone-input" accept="image/jpeg, image/png, image/webp">
+          </div>
+        </div>
+      `);
+    }
+  } catch(_) {}
+
+  // Lógica Drag-and-Drop
+  const dropZone = form.querySelector('#dropZoneMoto');
+  const fileInput = form.querySelector('#imagemMoto');
+  const previewImg = form.querySelector('#previewMoto');
+  let arquivoParaUpload = null;
+
+  // Insere bloco 3D (.glb) logo após o bloco de imagem, se ainda não existir
+  try {
+    if (dropZone && !form.querySelector('#dropZone3D')) {
+      dropZone.parentElement.insertAdjacentHTML('afterend', `
+        <div class="form-group">
+          <label>Modelo 3D (.glb)</label>
+          <div class="drop-zone" id="dropZone3D">
+            <span class="drop-zone-prompt">Arraste e solte o modelo 3D (.glb) aqui<br>ou clique para selecionar</span>
+            <span class="drop-zone-preview-file" id="preview3DFile">Nenhum arquivo</span>
+            <input type="file" id="modelo3D" name="modelo3D" class="drop-zone-input" accept=".glb">
+          </div>
+        </div>
+      `);
+    }
+  } catch(_) {}
+
+  const dropZone3D = form.querySelector('#dropZone3D');
+  const fileInput3D = form.querySelector('#modelo3D');
+  const preview3DFile = form.querySelector('#preview3DFile');
+  let arquivo3DParaUpload = null;
+
+  function preventDefaults(e){ e.preventDefault(); e.stopPropagation(); }
+  function handleFiles(files){
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    if (!file.type.startsWith('image/')) { try { window.showToast && window.showToast('Arquivo inválido. Selecione uma imagem.', 'error'); } catch(_) {}; return; }
+    arquivoParaUpload = file;
+    const reader = new FileReader();
+    reader.onload = () => { if (previewImg) { previewImg.src = reader.result; } if (dropZone) dropZone.classList.add('filled'); };
+    reader.readAsDataURL(file);
+  }
+  if (dropZone && fileInput){
+    dropZone.addEventListener('click', () => fileInput.click());
+    ['dragenter','dragover','dragleave','drop'].forEach(ev => dropZone.addEventListener(ev, preventDefaults, false));
+    ['dragenter','dragover'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.add('hover'), false));
+    ['dragleave','drop'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.remove('hover'), false));
+    dropZone.addEventListener('drop', (e) => { const dt = e.dataTransfer; handleFiles(dt.files); });
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+  }
+
+  // Drag-and-Drop 3D (.glb)
+  function handleFiles3D(files){
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    if (!file.name.toLowerCase().endsWith('.glb')) { try { window.showToast && window.showToast('Arquivo inválido. Apenas .glb.', 'error'); } catch(_) {}; return; }
+    arquivo3DParaUpload = file;
+    if (preview3DFile) preview3DFile.textContent = file.name;
+    if (dropZone3D) dropZone3D.classList.add('filled');
+  }
+  if (dropZone3D && fileInput3D){
+    dropZone3D.addEventListener('click', () => fileInput3D.click());
+    ['dragenter','dragover','dragleave','drop'].forEach(ev => dropZone3D.addEventListener(ev, preventDefaults, false));
+    ['dragenter','dragover'].forEach(ev => dropZone3D.addEventListener(ev, () => dropZone3D.classList.add('hover'), false));
+    ['dragleave','drop'].forEach(ev => dropZone3D.addEventListener(ev, () => dropZone3D.classList.remove('hover'), false));
+    dropZone3D.addEventListener('drop', (e) => handleFiles3D(e.dataTransfer.files));
+    fileInput3D.addEventListener('change', (e) => handleFiles3D(e.target.files));
+  }
+
   // Sugere id baseado no nome
   modelName.addEventListener('input', () => {
     if (!modelId.value) modelId.value = slugify(modelName.value);
@@ -183,6 +264,32 @@ export function mountCatalogFeature(role) {
       });
       if (specs.length) payload.specs = specs;
 
+      // Upload da imagem principal (opcional)
+      if (arquivoParaUpload) {
+        try {
+          const mainPath = `models/${id}/main-${Date.now()}-${arquivoParaUpload.name}`;
+          const mainRef = ref(storage, mainPath);
+          await uploadBytes(mainRef, arquivoParaUpload);
+          const mainUrl = await getDownloadURL(mainRef);
+          payload.mainImageUrl = mainUrl;
+        } catch(_) {}
+        // Limpa preview/variável após salvar
+        try { if (dropZone) dropZone.classList.remove('filled'); if (previewImg) previewImg.src = ''; if (fileInput) fileInput.value = null; } catch(_) {}
+        arquivoParaUpload = null;
+      }
+      // Upload do modelo 3D (.glb) (opcional)
+      if (arquivo3DParaUpload) {
+        try {
+          const path3d = `models3d/${id}-${Date.now()}-${arquivo3DParaUpload.name}`;
+          const ref3d = ref(storage, path3d);
+          await uploadBytes(ref3d, arquivo3DParaUpload);
+          const url3d = await getDownloadURL(ref3d);
+          payload.model3D_URL = url3d;
+        } catch(_) {}
+        try { if (dropZone3D) dropZone3D.classList.remove('filled'); if (preview3DFile) preview3DFile.textContent = 'Nenhum arquivo'; if (fileInput3D) fileInput3D.value=''; } catch(_) {}
+        arquivo3DParaUpload = null;
+      }
+
       // Coleta cores + upload
       const colors = [];
       for (const g of Array.from(colorInputs.querySelectorAll('.dynamic-input-group'))) {
@@ -218,3 +325,5 @@ export function mountCatalogFeature(role) {
   // Primeira carga
   refreshList();
 }
+
+

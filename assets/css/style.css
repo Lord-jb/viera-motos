@@ -64,7 +64,13 @@ body {
     color: var(--color-text-dark);
     background-color: var(--color-background-light);
     overflow-x: hidden; /* Previne scroll horizontal */
+    /* Transição de fade entre páginas */
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
 }
+
+/* Classe aplicada via JS para fazer fade-out ao navegar */
+body.fade-out { opacity: 0; }
 
 a {
     text-decoration: none;
@@ -398,6 +404,10 @@ ul {
     gap: 3rem;
     margin-top: 5rem;
 }
+
+/* Alias para cards (compatibilidade com instrução .moto-card) */
+.moto-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.moto-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
 .model-card {
     background-color: var(--color-primary-dark);

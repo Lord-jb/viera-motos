@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Admin - Avelloz Motos</title>
@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
 <body>
 
@@ -88,6 +90,11 @@
                             <div class="metric-label">Visitas (Hoje)</div>
                             <div class="metric-value">--</div>
                         </div>
+                    </div>
+
+                    <div class="chart-container" style="width: 80%; max-width: 700px; margin: 24px auto;">
+                      <h3 style="margin-bottom:12px;">Novos Leads (Últimos 7 dias)</h3>
+                      <canvas id="leadsChart"></canvas>
                     </div>
 
                     <div class="activity-feed">

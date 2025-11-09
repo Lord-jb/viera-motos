@@ -1,7 +1,7 @@
-/*
+﻿/*
  * Arquivo: admin.css
- * Descrição: Estilos para o painel de administração (admin.html).
- * Versão: Moderna e Reestilizada
+ * DescriÃ§Ã£o: Estilos para o painel de administraÃ§Ã£o (admin.html).
+ * VersÃ£o: Moderna e Reestilizada
  */
 
 /* =======================
@@ -73,7 +73,7 @@ body {
 }
 
 /* =======================
-   2. SEÇÃO DE LOGIN
+   2. SEÃ‡ÃƒO DE LOGIN
    ======================== */
 .login-container {
     width: 100%;
@@ -114,7 +114,7 @@ body {
 }
 
 /* =======================
-   3. FORMULÁRIOS GERAIS
+   3. FORMULÃRIOS GERAIS
    ======================== */
 form {
     width: 100%;
@@ -175,7 +175,7 @@ form {
     text-align: center;
 }
 
-/* Layout de Grid para Formulários (Banners, Configs) */
+/* Layout de Grid para FormulÃ¡rios (Banners, Configs) */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -203,7 +203,7 @@ hr {
 }
 
 /* =======================
-   4. BOTÕES
+   4. BOTÃ•ES
    ======================== */
 .btn-submit {
     padding: 1.2rem 2.4rem;
@@ -242,7 +242,7 @@ hr {
     background-color: var(--color-border);
 }
 
-/* Foco visível para Acessibilidade */
+/* Foco visÃ­vel para Acessibilidade */
 .btn-submit:focus-visible, 
 .btn-secondary:focus-visible,
 .icon-button:focus-visible,
@@ -256,7 +256,7 @@ hr {
    5. PAINEL DE ADMIN (Layout Principal)
    ======================== */
 #admin-panel {
-    display: none; /* JS irá mostrar */
+    display: none; /* JS irÃ¡ mostrar */
     flex-direction: row;
     min-height: 100vh;
 }
@@ -334,7 +334,7 @@ hr {
     font-size: 1.6rem;
 }
 
-/* Estilo do botão Sair */
+/* Estilo do botÃ£o Sair */
 #logout-button {
     color: #ffaaaa;
 }
@@ -349,7 +349,7 @@ hr {
     box-shadow: inset 0 0 0 2px var(--color-primary-orange);
 }
 
-/* --- Conteúdo Principal --- */
+/* --- ConteÃºdo Principal --- */
 .main-content {
     flex-grow: 1;
     padding: 3rem;
@@ -401,13 +401,13 @@ hr {
     color: var(--color-text-dark);
 }
 
-/* --- Views (Cards de Conteúdo) --- */
+/* --- Views (Cards de ConteÃºdo) --- */
 .view {
     background-color: var(--color-surface);
     padding: 3rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
-    display: none; /* JS controla a exibição */
+    display: none; /* JS controla a exibiÃ§Ã£o */
 }
 .view.active-view {
     display: block;
@@ -479,7 +479,7 @@ hr {
     border-bottom-color: var(--color-primary-orange);
 }
 
-/* --- Conteúdo das Abas --- */
+/* --- ConteÃºdo das Abas --- */
 .tab-content {
     display: none; /* O JS vai mudar para 'block' */
     animation: fadeIn 0.5s; /* Efeito suave */
@@ -548,7 +548,7 @@ hr {
 }
 
 /* =======================
-   7. DASHBOARD (Métricas e Atividade)
+   7. DASHBOARD (MÃ©tricas e Atividade)
    ======================== */
 .metrics-grid {
     display: grid;
@@ -650,7 +650,7 @@ hr {
       padding: 1.5rem;
   }
   .form-grid {
-      grid-template-columns: 1fr; /* Coluna única em mobile */
+      grid-template-columns: 1fr; /* Coluna Ãºnica em mobile */
   }
   .admin-topbar {
       padding: 1.2rem 1.5rem;
@@ -683,7 +683,7 @@ hr {
         font-size: 1.8rem;
     }
     .main-content {
-        padding-top: 8rem; /* Garante espaço para o topbar fixo */
+        padding-top: 8rem; /* Garante espaÃ§o para o topbar fixo */
     }
     .admin-topbar {
         top: 0;
@@ -706,3 +706,69 @@ hr {
         margin-bottom: 1.5rem;
     }
 }
+/* --- Estilos do Toast Notification --- */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  z-index: 1050;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.toast.show { opacity: 1; transform: translateX(0); }
+.toast-icon { font-size: 16px; }
+.toast.toast-success { background-color: #28a745; }
+.toast.toast-error { background-color: #dc3545; }
+.toast.toast-info { background-color: #17a2b8; }
+
+/* --- Estilos do Drag-and-Drop --- */
+.drop-zone {
+  width: 100%;
+  height: 200px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  color: #aaa;
+  border: 3px dashed #ccc;
+  border-radius: 10px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #fafafa;
+}
+.drop-zone.hover { border-color: #007bff; background-color: #f0f8ff; }
+.drop-zone.filled { border-style: solid; border-color: #28a745; }
+.drop-zone-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.drop-zone-prompt { display: block; }
+.drop-zone-preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: none; }
+.drop-zone.filled .drop-zone-prompt { display: none; }
+.drop-zone.filled .drop-zone-preview { display: block; }
+
+/* --- Estilos do Drop-Zone de Arquivo (.glb) --- */
+.drop-zone-preview-file {
+  font-weight: 600;
+  color: #333;
+  background-color: #e9ecef;
+  padding: 8px 12px;
+  border-radius: 5px;
+  display: none;
+}
+.drop-zone.filled .drop-zone-preview-file { display: inline-block; }
+.drop-zone.filled .drop-zone-prompt { display: none; }

@@ -1,9 +1,6 @@
-/*
- * SEO Dinâmico (site público)
- * Lê Firestore (settings/general) e atualiza: <title>, meta description,
- * og:title e og:description em tempo real (onSnapshot, compat API).
- * Depende de: assets/js/firebase-init.js (variável global 'firestore').
- */
+﻿// SEO dinâmico (v9 modular)
+import { db } from './firebase-init.js';
+import { doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 
 (function () {
   if (typeof window === 'undefined') return;
@@ -38,13 +35,11 @@
   }
 
   function initSEO() {
-    if (typeof firestore === 'undefined') return;
     try {
-      const ref = firestore.collection('settings').doc('general');
-      // Atualiza em tempo real
-      ref.onSnapshot((doc) => {
-        if (!doc || !doc.exists) return;
-        const d = doc.data() || {};
+      const ref = doc(db, 'settings', 'general');
+      onSnapshot(ref, (snap) => {
+        if (!snap || !snap.exists()) return;
+        const d = snap.data() || {};
         const title = d.title || document.title;
         const description = d.description || '';
         updateSEO(title, description);
@@ -58,4 +53,3 @@
     initSEO();
   }
 })();
-

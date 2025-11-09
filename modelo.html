@@ -6,8 +6,10 @@
     <title>Carregando Modelo... - Avelloz Motos Marabá</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/animations.css">
@@ -43,6 +45,14 @@
     <main class="model-page">
         <section class="model-hero" id="overview">
             <div class="model-hero-image" id="model-hero-image"><p>Carregando imagem...</p></div>
+            <div class="model-viewer-container" id="modelViewerContainer" style="display: none; position: relative;">
+              <model-viewer id="motoModelViewer" src="" alt="Modelo 3D da moto"
+                camera-controls auto-rotate ar ar-modes="webxr scene-viewer quick-look"
+                shadow-intensity="1" exposure="1" style="width: 100%; height: 400px; border-radius: 10px;">
+                <button slot="ar-button" id="ar-button">Ver no meu espaço (AR)</button>
+                <div class="progress-bar" slot="progress-bar"><div class="update-bar"></div></div>
+              </model-viewer>
+            </div>
             <div class="model-hero-info">
                 <span class="model-tag" id="model-hero-info-tag">...</span>
                 <h1 class="model-title" id="model-hero-info-title">Carregando...</h1>
@@ -74,14 +84,10 @@
     <footer class="main-footer" id="main-footer"><div class="container"></div></footer>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/menu.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
-    <script src="assets/js/firebase-init.js"></script>
-    <script src="assets/js/seo.js"></script>
-    
-    <script src="assets/js/modelo-dynamic.js"></script>
+    <script type="module" src="assets/js/firebase-init.js"></script>
+    <script type="module" src="assets/js/seo.js"></script>
+    <script type="module" src="assets/js/modelo-dynamic.js"></script>
+    <script type="module" src="/assets/js/ui-main.js"></script>
     
 </body>
 </html>

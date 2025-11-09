@@ -1,3 +1,5 @@
+import { db } from './firebase-init.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js';
 /*
  * Arquivo: modelo-dynamic.js
  * (Versão corrigida, sem vídeo, com galeria de fotos)
@@ -18,12 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 2. BUSCAR DADOS DO MODELO NO FIRESTORE
-    const modelRef = firestore.collection("models").doc(modelId);
+    const modelRef = doc(db, 'models', modelId);
 
-    modelRef.get()
-        .then(doc => {
-            if (doc.exists) {
-                const model = doc.data();
+    getDoc(modelRef).then(snap => {
+            if (snap.exists()) { const model = snap.data();
                 populatePage(model, modelId); // 3. POPULAR A PÁGINA
                 activateColorSelector(); // 4. ATIVAR SELETOR DE COR
             } else {
@@ -39,21 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
 /**
  * Exibe uma mensagem de erro centralizada na página.
  */
-function displayError(container, message) {
-    if (container) {
-        container.innerHTML = `
-            <div style="text-align: center; padding: 10rem 2rem; color: var(--color-primary-dark);">
-                <h1>Oops!</h1>
-                <p style="font-size: 2rem;">${message}</p>
-                <a href="index.html" class="btn btn-primary" style="margin-top: 2rem;">Voltar à Home</a>
-            </div>
-        `;
-    }
-}
-
-/**
- * Injeta os dados do modelo no HTML da página.
- */
 function populatePage(model, modelId) {
     document.title = `${model.name} - Viera Moto Center Marabá`;
 
@@ -63,6 +48,20 @@ function populatePage(model, modelId) {
     document.getElementById("model-hero-info-title").textContent = model.name;
     document.getElementById("model-hero-info-price").innerHTML = `A partir de <span>R$ ${__escape(model.price || '...')}</span>`;
     document.getElementById("model-color-swatches").innerHTML = generateColorSwatches(model.colors);
+
+    // Model Viewer (3D)
+    try {
+      const mvContainer = document.getElementById('modelViewerContainer');
+      const mv = document.getElementById('motoModelViewer');
+      if (mvContainer && mv) {
+        if (model.model3D_URL) {
+          mv.src = model.model3D_URL;
+          mvContainer.style.display = 'block';
+        } else {
+          mvContainer.style.display = 'none';
+        }
+      }
+    } catch(_) {}
 
     // Specs
     document.getElementById("specs-summary-grid").innerHTML = generateSpecsSummary(model.specs);
@@ -172,3 +171,5 @@ function activateColorSelector() {
         });
     });
 }
+
+
